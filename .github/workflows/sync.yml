@@ -9,18 +9,19 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
     timeout-minutes: 15
     
     steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
       - name: 安装 Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-
-      - name: 克隆仓库
-        run: |
-          git clone https://github.com/juntianzhang317-ops/allvalue-help-center.git .          
 
       - name: 安装依赖
         run: npm install
@@ -31,7 +32,7 @@ jobs:
           FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
           FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}
 
-      - name: 提交网站文件
+      - name: 部署到 GitHub Pages
         run: |
           cd public
           git init
@@ -40,4 +41,4 @@ jobs:
           git add .
           git commit -m "chore: 同步知识库 $(date +'%Y-%m-%d %H:%M')"
           git branch -M gh-pages
-          git push -f https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/juntianzhang317-ops/allvalue-help-center.git gh-pages                           
+          git push -f https://github.com/juntianzhang317-ops/allvalue-help-center.git gh-pages          

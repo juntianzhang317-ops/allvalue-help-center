@@ -1,10 +1,7 @@
 {
   "name": "allvalue-help-center",
   "version": "1.0.0",
-  "description": "AllValue 帮助中心 - 基于飞书知识库生成",
   "scripts": {
     "sync": "node sync.js"
-  },
-  "dependencies": {
   }
 }

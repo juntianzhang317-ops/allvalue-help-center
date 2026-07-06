@@ -4,8 +4,6 @@ on:
   schedule:
     - cron: '0 */6 * * *'
   workflow_dispatch:
-  push:
-    branches: [main]
 
 jobs:
   sync:
@@ -29,11 +27,3 @@ jobs:
         env:
           FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
           FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}
-
-      - name: 提交更改
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "GitHub Actions"
-          git add public/
-          git diff --staged --quiet || git commit -m "chore: 同步知识库 $(date +'%Y-%m-%d %H:%M')"
-          git push          

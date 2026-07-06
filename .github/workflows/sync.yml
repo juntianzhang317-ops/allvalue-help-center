@@ -30,10 +30,13 @@ jobs:
           FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
           FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}
 
-      - name: 提交网站文件
+       - name: 提交网站文件
         run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "GitHub Actions"
-          git add public/
-          git diff --staged --quiet || git commit -m "chore: 同步知识库 $(date +'%Y-%m-%d %H:%M')"
-          git push          
+          cd public
+          git init
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "GitHub Actions"
+          git add .
+          git commit -m "chore: 同步知识库 $(date +'%Y-%m-%d %H:%M')"
+          git branch -M gh-pages
+          git push -f https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/juntianzhang317-ops/allvalue-help-center.git gh-pages                   

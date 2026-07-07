@@ -1,0 +1,220 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>小红书直播 - AllValue 帮助中心</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.8;background:#f5f5f5;color:#333}
+a{color:#0066cc;text-decoration:none}
+a:hover{text-decoration:underline}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:280px;background:#fff;border-right:1px solid #e5e5e5;position:fixed;height:100vh;overflow-y:auto;z-index:100}
+.sidebar-header{padding:24px 20px;background:linear-gradient(135deg,#667eea,#764ba2);position:sticky;top:0}
+.sidebar-header h1{font-size:15px;color:#fff;font-weight:600}
+.sidebar-header p{font-size:12px;color:rgba(255,255,255,0.8);margin-top:4px}
+.nav-list{list-style:none;padding:8px 0}
+.nav-leaf a{display:block;padding:9px 20px;color:#444;font-size:14px;border-left:3px solid transparent}
+.nav-leaf a:hover{background:#f0f7ff;color:#0066cc;border-left-color:#0066cc;text-decoration:none}
+.nav-leaf.active a{background:#f0f7ff;color:#0066cc;border-left-color:#0066cc;font-weight:500}
+.nav-group-title{display:flex;align-items:center;padding:9px 20px;font-size:13px;font-weight:600;color:#222;cursor:pointer;user-select:none;border-left:3px solid transparent}
+.nav-group-title:hover{background:#f5f5f5}
+.nav-arrow{margin-left:auto;font-size:10px;color:#999;transition:transform .2s}
+.nav-group.open>.nav-group-title{color:#667eea;border-left-color:#667eea}
+.nav-group.open>.nav-group-title .nav-arrow{transform:rotate(90deg)}
+.nav-sub{display:none;padding-left:0}
+.nav-group.open>.nav-sub{display:block}
+.nav-sub a{padding-left:36px;font-size:13px}
+.main{flex:1;margin-left:280px;padding:0;max-width:900px}
+.doc-header{padding:32px 48px 24px;background:#fff;border-bottom:1px solid #e5e5e5}
+.doc-header h1{font-size:28px;color:#222;border:none;padding:0;margin:0}
+.doc-header .breadcrumb{font-size:13px;color:#999;margin-top:8px}
+.doc-body{padding:40px 48px;background:#fff;min-height:calc(100vh - 200px)}
+.doc-body h1,.doc-body h2,.doc-body h3,.doc-body h4{color:#222;margin-top:32px;margin-bottom:16px}
+.doc-body h1{font-size:26px;border-bottom:2px solid #667eea;padding-bottom:12px;margin-top:0}
+.doc-body h2{font-size:20px;border-bottom:1px solid #eee;padding-bottom:8px}
+.doc-body h3{font-size:17px}
+.doc-body p{margin-bottom:16px;color:#444;line-height:1.8}
+.doc-body ul,.doc-body ol{margin:12px 0 16px;padding-left:24px}
+.doc-body li{margin-bottom:6px}
+.doc-body pre{background:#1e1e1e;color:#d4d4d4;padding:16px 20px;border-radius:8px;overflow-x:auto;margin:16px 0;font-size:13px;line-height:1.6}
+.doc-body code{background:#f0f0f0;padding:2px 6px;border-radius:4px;font-size:13px;font-family:"SFMono-Regular",Consolas,monospace}
+.doc-body pre code{background:none;padding:0;border-radius:0;font-size:13px}
+.doc-body blockquote.callout{padding:16px 20px;border-radius:8px;border-left:4px solid;margin:20px 0;font-size:14px;line-height:1.7}
+.doc-body hr{border:none;border-top:1px solid #e5e5e5;margin:32px 0}
+.doc-body figure{margin:20px 0;text-align:center}
+.doc-body figure img{max-width:100%;height:auto;border-radius:8px;border:1px solid #e5e5e5}
+.doc-body .board-placeholder{background:#f8f8f8;border:2px dashed #ccc;border-radius:8px;padding:32px;text-align:center;color:#666;margin:20px 0}
+.table-wrapper{overflow-x:auto;margin:16px 0}
+.table-wrapper table{border:1px solid #e5e5e5;border-radius:8px;overflow:hidden}
+.table-wrapper th,.table-wrapper td{padding:10px 14px;border-bottom:1px solid #e5e5e5;text-align:left;font-size:14px}
+.table-wrapper th{background:#f8f8f8;font-weight:600}
+.table-wrapper tr:last-child td{border-bottom:none}
+.back-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#f5f5f5;border-radius:6px;color:#666;font-size:14px;margin-bottom:24px}
+.back-btn:hover{background:#e8e8e8;color:#333;text-decoration:none}
+.footer{padding:24px 48px;border-top:1px solid #e5e5e5;color:#999;font-size:13px;text-align:center;background:#fff}
+@media(max-width:768px){
+.mobile-toggle{display:block;position:fixed;top:16px;left:16px;z-index:200;background:#667eea;color:#fff;border:none;padding:8px 12px;border-radius:6px;cursor:pointer;font-size:18px}
+.sidebar{transform:translateX(-100%);transition:transform .3s}
+.sidebar.open{transform:translateX(0)}
+.main{margin-left:0;max-width:100%;padding:0 16px}
+.doc-header,.doc-body{padding:20px 0}
+}
+</style>
+</head><body>
+<button class="mobile-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">☰</button>
+<div class="layout">
+<aside class="sidebar">
+<div class="sidebar-header"><h1>📖 AllValue 帮助中心</h1><p>飞书知识库</p></div>
+<nav><ul class="nav-list"><li class="nav-group"><span class="nav-group-title">AllValue店铺版<span class="nav-arrow">▸</span></span><ul class="nav-sub"><li class="nav-group"><span class="nav-group-title">快速上手，创建属于你自己的店铺<span class="nav-arrow">▸</span></span><ul class="nav-sub"><li class="nav-leaf"><a href="/docs/GWxqwUjrmixU2NkqwxHcoGW8nth.html">账号注册与登录</a></li>
+</ul></li>
+<li class="nav-group"><span class="nav-group-title">AllValue微信小程序商城<span class="nav-arrow">▸</span></span><ul class="nav-sub"><li class="nav-leaf"><a href="/docs/FaxzwK5dji9gTbkgP8PcrwgnnYd.html">微信小程序商城上线</a></li>
+<li class="nav-leaf"><a href="/docs/Oa8xwVKUAi4ZYAkyP0EcSnldnhe.html">微信小程序客服</a></li>
+<li class="nav-leaf"><a href="/docs/VJECw1SwyiKHUgkMdwUcrUDinch.html">微信小程序解除授权</a></li>
+</ul></li>
+<li class="nav-group"><span class="nav-group-title">AllValue 小红书店铺<span class="nav-arrow">▸</span></span><ul class="nav-sub"><li class="nav-leaf"><a href="/docs/TzujwM8a9ishW1kc6frcrbX5nSe.html">小红书店铺上线</a></li>
+<li class="nav-leaf"><a href="/docs/WMabwqMLEiY44okJWMWc4sb1ncS.html">小红书经营设置</a></li>
+<li class="nav-leaf"><a href="/docs/F4xewnJoEi5KFHkk457cuDkGnZf.html">小红书相关玩法</a></li>
+<li class="nav-leaf"><a href="/docs/VX6bwkudpiN9IkkzOuacug0anZn.html">小红书聚光</a></li>
+<li class="nav-leaf"><a href="/docs/TvQXwMHb8iGPQ4klWq8cq9vSnCe.html">小红书蒲公英</a></li>
+<li class="nav-leaf"><a href="/docs/H2HVw8yluiZGtlkt5vRcNnKYnch.html">小红书直播</a></li>
+</ul></li>
+<li class="nav-group"><span class="nav-group-title">后台操作指引<span class="nav-arrow">▸</span></span><ul class="nav-sub"><li class="nav-leaf"><a href="/docs/Tat8wsEy8i2MtkkM6MJcHD77nxg.html">设置</a></li>
+<li class="nav-leaf"><a href="/docs/IOnzwqJqEic3P9kPWbTcB2H7ndG.html">订单</a></li>
+<li class="nav-leaf"><a href="/docs/IzyCwGfFbiLwvGkDQuRcL5xInZg.html">店铺</a></li>
+<li class="nav-leaf"><a href="/docs/LnHbwAQdai8ux6kw65Cc0rhPnqe.html">内容</a></li>
+<li class="nav-leaf"><a href="/docs/TkSRwF6EyifwdSkPDPMcc3H4nCe.html">商品</a></li>
+<li class="nav-leaf"><a href="/docs/E786wGU7zi5uB7kvSlCcevOknJd.html">营销</a></li>
+<li class="nav-leaf"><a href="/docs/JCoBw08MPieHONkRo3xcyxwZnJh.html">客户</a></li>
+<li class="nav-leaf"><a href="/docs/MIL2wGlzEinPgXkqCykcKe7sn6f.html">数据</a></li>
+</ul></li>
+<li class="nav-group"><span class="nav-group-title">AllValue 移动客户端<span class="nav-arrow">▸</span></span><ul class="nav-sub"><li class="nav-leaf"><a href="/docs/WWLmwtmaaieVqQkf9S9cYoDgnqe.html">AllValue移动客户端</a></li>
+</ul></li>
+</ul></li>
+<li class="nav-group"><span class="nav-group-title">AllValue营销版<span class="nav-arrow">▸</span></span><ul class="nav-sub"><li class="nav-leaf"><a href="/docs/A2bUwWF7aiWG7skRo2Jc3daQnfd.html">AllValue Link - 社交内容托管设置</a></li>
+<li class="nav-leaf"><a href="/docs/Gi2GwRaC7iyM8TkUVkZcj5shnQf.html">Yelp店铺地址获取</a></li>
+<li class="nav-leaf"><a href="/docs/VJXgw2TkziHlqykp8EscvJQcnWd.html">导入卡券卡密管理库存</a></li>
+<li class="nav-leaf"><a href="/docs/WRAhw8Dgwi0qXEkV3yBcOWOjnVb.html">碰碰贴·使用流程</a></li>
+<li class="nav-leaf"><a href="/docs/B44PwJH0GifqCHkGfUycJq1xn1f.html">如何绑定NFC卡</a></li>
+<li class="nav-leaf"><a href="/docs/M3h0wtKnhiRxIRkM5TecL88jnbb.html">如何获取Google店铺评价地址</a></li>
+<li class="nav-leaf"><a href="/docs/RttlwHnrvihf0ukktlacRD4qnHe.html">如何获取Yelp店铺地址</a></li>
+<li class="nav-leaf"><a href="/docs/VwrEwUm5niY0E7kXHfGcW2tTn5b.html">如何获取小红书店铺POI链接</a></li>
+<li class="nav-leaf"><a href="/docs/X2uNwwVSZirhJDkQ3PtcZprwnQb.html">小红书笔记组件</a></li>
+<li class="nav-leaf"><a href="/docs/BuP9wevdFizQ5Sk8wVWcvky6nwh.html">小红书内容托管-描述简介填写指引</a></li>
+<li class="nav-leaf"><a href="/docs/UQlOwlMZ7ibCw9kDKXtceQYxnhc.html">智能创作内容</a></li>
+</ul></li>
+</ul></nav>
+</aside>
+<div class="main">
+<div class="doc-header">
+<a class="back-btn" href="/">← 返回目录</a>
+<h1>小红书直播</h1>
+<div class="breadcrumb">AllValue店铺版 › AllValue 小红书店铺 › 小红书直播</div>
+</div>
+<div class="doc-body"><h2>非大陆主体小红书企业专业号直播权限开通</h2>
+<p><span>❗️因为小红书针对海外主体和海外IP做了限制，海外企业专业号不能直接开通直播功能。如果需要开通直播功能，需要有中国大陆公司做担保，才能通过小红书客服人工处理开通直播权限。</span></p>
+<p><span>❗️在非大陆地区直播，小红书企业专业号要求1000粉丝以上。</span></p>
+<h1><span>一、准备资料</span></h1>
+<p><span>开通小红书企业专业号（非大陆主体）直播权限需要准备如下资料：</span></p>
+<h2><span>1.营业执照（大陆公司营业执照即可，具体没有限制）</span></h2>
+<h2><span>2.承诺函</span></h2>
+<h1><span>二、申请流程</span></h1>
+<h2><span>1.向小红书在线客服申请开通“境外主体直播权限”</span></h2>
+<p><span>通过小红书账号，联系小红书在线客服</span></p>
+<p><span>PC端：登入pro.xiaohongshu.com，在右上角🎧标识处，进入客服入口，连续输入三次&quot;人工服务”，可以唤起&quot;人工客服&quot;（人工客服在线时间：北京时间9:00-24:00）
+</span></p>
+<p><span>
+</span><span>告知申请开通“境外主体直播权限”的诉求，并提供上述已经准备好的文件。客服收到文件后，会创建服务项目，方便查看开通进度。也可以将联系方式留给小红书在线客服，方便进度更新的通知。</span></p>
+<h2><span>2.提交完成，等待小红书开通，预计48小时内处理完成</span></h2>
+<h2>非中国大陆地区个人直播资质申请指引</h2>
+<p><span>👉 由于政策原因，直播功能未向非中国大陆地区（(根据IP属地）开放。如果想要开通直播资质，需要满足如下条件的情况下进行申请：</span></p>
+<p><span>1.大陆身份证实名认证&amp;满18周岁</span></p>
+<p><span>2.近一年无严重直播内容违规情况</span></p>
+<p><span>3.账号注册时间&gt;=28天</span></p>
+<p><span>4.粉丝数&gt;=1000</span></p>
+<h1><strong>申请路径：</strong></h1>
+<p><strong>小红书APP「我」&gt;左上角「三」&gt;「创作中心」&gt;「直播中心」</strong></p>
+<p><span>点击「去开播」会收到资质提醒，点击查看详情进入非中国大陆地区直播申请界面</span></p>
+<h1><span>1.基础资质认证</span></h1>
+<p><span>确认当前小红书账号满足基础资质认证的全部条件，阅读直播规范（详情见评论）并勾选“已同意”。如果条件不满足，需要待满足后再申请。</span></p>
+<h1><span>2.行为规范测试</span></h1>
+<p><span>部分试题答案如下</span></p>
+<h2>个人专业号直播挂商品</h2>
+<p><span>小红书直播带货</span></p>
+<h2><span>一. 前提条件</span></h2>
+<p><span>在您看这篇文章前，</span></p>
+<p><span>1. 请确认您的个人账号已成为小红书个人专业号，</span></p>
+<p><span>如还没有，请参考教程</span><span>个人专业号开通指南</span></p>
+<p><span>2. 请确认个人专业号已经和主企业号关联，参考教程</span><span>小红书账号关联玩法</span></p>
+<p><span>通过主账号邀请个人专业号加入关联账号，一个企业专业号可以关联三个个人专业号</span></p>
+<h2><span>二. 权限开通</span></h2>
+<p><span>在</span><strong>主账号</strong><span>（蓝V企业专业号）中给已绑定的个人专业号</span><strong>开通店播权限</strong></p>
+<h2><span>***以下直播功能由于小红书系统故障还在修复中，暂不支持使用***</span></h2>
+<h2><span>三. 开通个人专业号直播功能</span></h2>
+<p><span>📢 基础资质认证要求：</span></p>
+<p><span>-大陆身份证实名认证+满18周岁</span></p>
+<p><span>-账号注册时间至少28天</span></p>
+<p><span>-粉丝数至少100</span></p>
+<p><span>-</span><strong>没有账号活跃度要求</strong></p>
+<h2><span>四. 直播挂店铺商品</span></h2>
+<p><span>直播权限开通后，回到直播页面，点击【设置】-&gt;【添加商品】</span></p>
+<p><span>在【我的店铺】里选择想在直播里上架的商品</span></p>
+<p><span>🎉接下来我们就可以开始我们的个人专业号直播带货啦！</span></p>
+<p><span>商品讲解 购物车 弹窗等一系列直播功能就都解锁啦~</span></p>
+<h3><span>关于小红书直播，请参考指南</span><strong>小红书直播玩法</strong></h3>
+<h2>小红书企业专业号直播时挂售商品</h2>
+<p><span>🧐如果希望小红书企业专业号直播时售卖商品，需要满足以下条件：</span></p>
+<p><span>1.小红书企业专业号已经开通店铺，且有商品上架正式售卖</span></p>
+<p><span>2.小红书企业专业号已经开通直播权限（如果还没有开通，可以通过如下指引开通直播权限</span><span>小红书企业专业号（非大陆主体）直播权限开通</span></p>
+<h1><span>一、选择直播商品</span></h1>
+<p><span>操作路径：「小红书专业号平台」&gt;「内容管理」&gt;「直播管理」&gt;「选择直播商品」</span></p>
+<p><span>此处展示的商品为店铺上架正常销售的商品，如果需要在直播时展示，需要点击“加入直播商品池”。</span></p>
+<p><span>如果店铺的商品信息有变更，需要在小红书下架商品后重新点击“添加推广商品，此处的商品信息才会同步变更”</span></p>
+<h1><span>二、开启直播时添加商品</span></h1>
+<p><span>操作路径：小红书企业专业号「我」&gt;「创作中心」&gt;「创作服务」&gt;「主播中心」&gt;「去开播」&gt;「添加商品」</span></p>
+<h2>小红书直播带货基本规则科普</h2>
+<p><span>小红书直播 直播带货 直播违禁 直播封号 账号违规</span></p>
+<p><span>在小红书平台上的直播带货，需要</span><strong>严格遵守</strong><span>小红书平台的运营规则。开播前，请</span><strong>务必</strong><span>了解小红书平台直播禁忌，否则将有可能带来</span><strong>永久禁播</strong><span>的结果。</span></p>
+<p><span>请点击该链接阅读小红书平台发布的</span><span>小红书直播带货管理规则</span></p>
+<p><span>也</span><strong>强烈建议</strong><span>您到</span><strong>小红书电商学习中心搜索“</strong><strong>直播</strong><strong>”</strong><span>学习小红书官方发布的相关规则教学</span></p>
+<p><span>例如：</span><span>小红书直播间规范用语</span></p>
+<p><span>带货直播内容规范</span></p>
+<p><span>直播常见的违规行为</span></p>
+<p><span>消极直播违规类型</span></p>
+<p><span>AllValue提供的该篇文档仅为您介绍一些常见直播违规场景供您参考，</span></p>
+<p><span>具体规则以小红书发布为准</span></p>
+<h1><span>直播间常见的违规用词和示例</span></h1>
+<h1><span>直播间常见的违规导流行为和示例</span></h1>
+<h1><span>直播间常见的着装违规</span></h1>
+<h1><span>直播间违规出镜人员</span></h1>
+<h1><span>其他违规行为</span></h1>
+<p><span>直播不仅需要遵守小红书平台直播规则规范，</span><strong>更应当严格遵守国家法律法规</strong></p>
+<p><span>例如：</span></p>
+<p><span>最后，如若直播违反规则收到平台惩罚，</span><strong>请联系小红书进行申诉和处理</strong></p>
+<h2>小红书直播玩法</h2>
+<p><span>小红书自带直播功能，你可以充分利用直播与自己的顾客交流和互动。如果你有自己的店铺，还可以将店铺的商品在直播时挂车售卖。</span></p>
+<div class="table-wrapper"><table style="width:100%;border-collapse:collapse;font-size:14px"><thead><tr><th style="background:#f0f0f0;font-weight:600"></th></tr></thead><tbody><tr><td></td></tr><tr><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr><tr><td></td><td></td></tr><tr><td></td></tr><tr><td></td><td></td></tr><tr><td></td></tr><tr><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td></tr><tr><td></td></tr><tr><td></td></tr><tr><td></td></tr><tr><td></td></tr></tbody></table></div>
+<p><strong>内容</strong></p>
+<p><strong>简介</strong></p>
+<p><strong>操作指引</strong></p>
+<p><strong>小红书直播权限开通</strong></p>
+<p><span>想要在小红书直播，首先要开通小红书账号的直播权限；
+</span><span>如果是大陆地区，小红书个人号需要做实名认证，小红书企业号做企业专业号认证，没有粉丝要求即可以开通直播权限；</span></p>
+<p><span>非大陆地区详见右侧指引；</span></p>
+<p><strong>小红书直播规范</strong></p>
+<p><span>小红书直播带货管理规则</span></p>
+<p><span>直播时需要严格遵守小红书的直播规则，否则情节严重将被永久封号</span></p>
+<p><strong>小红书企业专业号直播时挂售商品</strong></p>
+<p><span>小红书企业专业号开通的店铺中有售卖的商品，你可以在企业专业号直播间挂售商品</span></p>
+<p><strong>直播间小助手设置</strong></p>
+<p><span>在直播过程中，通常主播会集中精力讲解商品，如果直播间的顾客通过文字互动，可以通过添加直播间小助手来回复顾客；</span></p>
+<p><strong>小红书直播间口播注意事项</strong></p>
+<p><span>想顺利的开展直播活动，一定要了解小红书直播间口播注意事项并严格遵守；</span></p></div>
+<div class="footer">AllValue 帮助中心 · 最后更新: 2026/7/7 15:19:58</div>
+</div>
+</div>
+<script>
+document.querySelectorAll('.nav-group-title').forEach(function(el){el.addEventListener('click',function(){this.parentElement.classList.toggle('open');});});
+// 侧边栏当前文章高亮
+var current=document.querySelector('.nav-leaf a[href="'+location.pathname+'"]');
+if(current)current.parentElement.classList.add('active');
+</script>
+</body></html>

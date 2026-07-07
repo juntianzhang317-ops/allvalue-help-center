@@ -1,0 +1,150 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>自定义页面-传统网页 - AllValue 帮助中心</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.8;background:#f5f5f5;color:#333}
+a{color:#0066cc;text-decoration:none}
+a:hover{text-decoration:underline}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:280px;background:#fff;border-right:1px solid #e5e5e5;position:fixed;height:100vh;overflow-y:auto;z-index:100}
+.sidebar-header{padding:24px 20px;background:linear-gradient(135deg,#667eea,#764ba2);position:sticky;top:0}
+.sidebar-header h1{font-size:15px;color:#fff;font-weight:600}
+.sidebar-header p{font-size:12px;color:rgba(255,255,255,0.8);margin-top:4px}
+.nav-list{list-style:none;padding:8px 0}
+.nav-leaf a{display:block;padding:9px 20px;color:#444;font-size:14px;border-left:3px solid transparent}
+.nav-leaf a:hover{background:#f0f7ff;color:#0066cc;border-left-color:#0066cc;text-decoration:none}
+.nav-leaf.active a{background:#f0f7ff;color:#0066cc;border-left-color:#0066cc;font-weight:500}
+.nav-group-title{display:flex;align-items:center;padding:9px 20px;font-size:13px;font-weight:600;color:#222;cursor:pointer;user-select:none;border-left:3px solid transparent}
+.nav-group-title:hover{background:#f5f5f5}
+.nav-arrow{margin-left:auto;font-size:10px;color:#999;transition:transform .2s}
+.nav-group.open>.nav-group-title{color:#667eea;border-left-color:#667eea}
+.nav-group.open>.nav-group-title .nav-arrow{transform:rotate(90deg)}
+.nav-sub{display:none;padding-left:0}
+.nav-group.open>.nav-sub{display:block}
+.nav-sub a{padding-left:36px;font-size:13px}
+.main{flex:1;margin-left:280px;padding:0;max-width:900px}
+.doc-header{padding:32px 48px 24px;background:#fff;border-bottom:1px solid #e5e5e5}
+.doc-header h1{font-size:28px;color:#222;border:none;padding:0;margin:0}
+.doc-header .breadcrumb{font-size:13px;color:#999;margin-top:8px}
+.doc-body{padding:40px 48px;background:#fff;min-height:calc(100vh - 200px)}
+.doc-body h1,.doc-body h2,.doc-body h3,.doc-body h4{color:#222;margin-top:32px;margin-bottom:16px}
+.doc-body h1{font-size:26px;border-bottom:2px solid #667eea;padding-bottom:12px;margin-top:0}
+.doc-body h2{font-size:20px;border-bottom:1px solid #eee;padding-bottom:8px}
+.doc-body h3{font-size:17px}
+.doc-body p{margin-bottom:16px;color:#444;line-height:1.8}
+.doc-body ul,.doc-body ol{margin:12px 0 16px;padding-left:24px}
+.doc-body li{margin-bottom:6px}
+.doc-body pre{background:#1e1e1e;color:#d4d4d4;padding:16px 20px;border-radius:8px;overflow-x:auto;margin:16px 0;font-size:13px;line-height:1.6}
+.doc-body code{background:#f0f0f0;padding:2px 6px;border-radius:4px;font-size:13px;font-family:"SFMono-Regular",Consolas,monospace}
+.doc-body pre code{background:none;padding:0;border-radius:0;font-size:13px}
+.doc-body blockquote.callout{padding:16px 20px;border-radius:8px;border-left:4px solid;margin:20px 0;font-size:14px;line-height:1.7}
+.doc-body hr{border:none;border-top:1px solid #e5e5e5;margin:32px 0}
+.doc-body figure{margin:20px 0;text-align:center}
+.doc-body figure img{max-width:100%;height:auto;border-radius:8px;border:1px solid #e5e5e5}
+.doc-body .board-placeholder{background:#f8f8f8;border:2px dashed #ccc;border-radius:8px;padding:32px;text-align:center;color:#666;margin:20px 0}
+.table-wrapper{overflow-x:auto;margin:16px 0}
+.table-wrapper table{border:1px solid #e5e5e5;border-radius:8px;overflow:hidden}
+.table-wrapper th,.table-wrapper td{padding:10px 14px;border-bottom:1px solid #e5e5e5;text-align:left;font-size:14px}
+.table-wrapper th{background:#f8f8f8;font-weight:600}
+.table-wrapper tr:last-child td{border-bottom:none}
+.back-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#f5f5f5;border-radius:6px;color:#666;font-size:14px;margin-bottom:24px}
+.back-btn:hover{background:#e8e8e8;color:#333;text-decoration:none}
+.footer{padding:24px 48px;border-top:1px solid #e5e5e5;color:#999;font-size:13px;text-align:center;background:#fff}
+@media(max-width:768px){
+.mobile-toggle{display:block;position:fixed;top:16px;left:16px;z-index:200;background:#667eea;color:#fff;border:none;padding:8px 12px;border-radius:6px;cursor:pointer;font-size:18px}
+.sidebar{transform:translateX(-100%);transition:transform .3s}
+.sidebar.open{transform:translateX(0)}
+.main{margin-left:0;max-width:100%;padding:0 16px}
+.doc-header,.doc-body{padding:20px 0}
+}
+</style>
+</head><body>
+<button class="mobile-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">☰</button>
+<div class="layout">
+<aside class="sidebar">
+<div class="sidebar-header"><h1>📖 AllValue 帮助中心</h1><p>飞书知识库</p></div>
+<nav><ul class="nav-list"><li class="nav-group"><span class="nav-group-title">AllValue店铺版<span class="nav-arrow">▸</span></span><ul class="nav-sub"><li class="nav-group"><span class="nav-group-title">快速上手，创建属于你自己的店铺<span class="nav-arrow">▸</span></span><ul class="nav-sub"><li class="nav-leaf"><a href="/docs/GWxqwUjrmixU2NkqwxHcoGW8nth.html">账号注册与登录</a></li>
+</ul></li>
+<li class="nav-group"><span class="nav-group-title">AllValue微信小程序商城<span class="nav-arrow">▸</span></span><ul class="nav-sub"><li class="nav-leaf"><a href="/docs/FaxzwK5dji9gTbkgP8PcrwgnnYd.html">微信小程序商城上线</a></li>
+<li class="nav-leaf"><a href="/docs/Oa8xwVKUAi4ZYAkyP0EcSnldnhe.html">微信小程序客服</a></li>
+<li class="nav-leaf"><a href="/docs/VJECw1SwyiKHUgkMdwUcrUDinch.html">微信小程序解除授权</a></li>
+</ul></li>
+<li class="nav-group"><span class="nav-group-title">AllValue 小红书店铺<span class="nav-arrow">▸</span></span><ul class="nav-sub"><li class="nav-leaf"><a href="/docs/TzujwM8a9ishW1kc6frcrbX5nSe.html">小红书店铺上线</a></li>
+<li class="nav-leaf"><a href="/docs/WMabwqMLEiY44okJWMWc4sb1ncS.html">小红书经营设置</a></li>
+<li class="nav-leaf"><a href="/docs/F4xewnJoEi5KFHkk457cuDkGnZf.html">小红书相关玩法</a></li>
+<li class="nav-leaf"><a href="/docs/VX6bwkudpiN9IkkzOuacug0anZn.html">小红书聚光</a></li>
+<li class="nav-leaf"><a href="/docs/TvQXwMHb8iGPQ4klWq8cq9vSnCe.html">小红书蒲公英</a></li>
+<li class="nav-leaf"><a href="/docs/H2HVw8yluiZGtlkt5vRcNnKYnch.html">小红书直播</a></li>
+</ul></li>
+<li class="nav-group"><span class="nav-group-title">后台操作指引<span class="nav-arrow">▸</span></span><ul class="nav-sub"><li class="nav-leaf"><a href="/docs/Tat8wsEy8i2MtkkM6MJcHD77nxg.html">设置</a></li>
+<li class="nav-leaf"><a href="/docs/IOnzwqJqEic3P9kPWbTcB2H7ndG.html">订单</a></li>
+<li class="nav-leaf"><a href="/docs/IzyCwGfFbiLwvGkDQuRcL5xInZg.html">店铺</a></li>
+<li class="nav-leaf"><a href="/docs/LnHbwAQdai8ux6kw65Cc0rhPnqe.html">内容</a></li>
+<li class="nav-leaf"><a href="/docs/TkSRwF6EyifwdSkPDPMcc3H4nCe.html">商品</a></li>
+<li class="nav-leaf"><a href="/docs/E786wGU7zi5uB7kvSlCcevOknJd.html">营销</a></li>
+<li class="nav-leaf"><a href="/docs/JCoBw08MPieHONkRo3xcyxwZnJh.html">客户</a></li>
+<li class="nav-leaf"><a href="/docs/MIL2wGlzEinPgXkqCykcKe7sn6f.html">数据</a></li>
+</ul></li>
+<li class="nav-group"><span class="nav-group-title">AllValue 移动客户端<span class="nav-arrow">▸</span></span><ul class="nav-sub"><li class="nav-leaf"><a href="/docs/WWLmwtmaaieVqQkf9S9cYoDgnqe.html">AllValue移动客户端</a></li>
+</ul></li>
+</ul></li>
+<li class="nav-group"><span class="nav-group-title">AllValue营销版<span class="nav-arrow">▸</span></span><ul class="nav-sub"><li class="nav-leaf"><a href="/docs/A2bUwWF7aiWG7skRo2Jc3daQnfd.html">AllValue Link - 社交内容托管设置</a></li>
+<li class="nav-leaf"><a href="/docs/Gi2GwRaC7iyM8TkUVkZcj5shnQf.html">Yelp店铺地址获取</a></li>
+<li class="nav-leaf"><a href="/docs/VJXgw2TkziHlqykp8EscvJQcnWd.html">导入卡券卡密管理库存</a></li>
+<li class="nav-leaf"><a href="/docs/WRAhw8Dgwi0qXEkV3yBcOWOjnVb.html">碰碰贴·使用流程</a></li>
+<li class="nav-leaf"><a href="/docs/B44PwJH0GifqCHkGfUycJq1xn1f.html">如何绑定NFC卡</a></li>
+<li class="nav-leaf"><a href="/docs/M3h0wtKnhiRxIRkM5TecL88jnbb.html">如何获取Google店铺评价地址</a></li>
+<li class="nav-leaf"><a href="/docs/RttlwHnrvihf0ukktlacRD4qnHe.html">如何获取Yelp店铺地址</a></li>
+<li class="nav-leaf"><a href="/docs/VwrEwUm5niY0E7kXHfGcW2tTn5b.html">如何获取小红书店铺POI链接</a></li>
+<li class="nav-leaf"><a href="/docs/X2uNwwVSZirhJDkQ3PtcZprwnQb.html">小红书笔记组件</a></li>
+<li class="nav-leaf"><a href="/docs/BuP9wevdFizQ5Sk8wVWcvky6nwh.html">小红书内容托管-描述简介填写指引</a></li>
+<li class="nav-leaf"><a href="/docs/UQlOwlMZ7ibCw9kDKXtceQYxnhc.html">智能创作内容</a></li>
+</ul></li>
+</ul></nav>
+</aside>
+<div class="main">
+<div class="doc-header">
+<a class="back-btn" href="/">← 返回目录</a>
+<h1>自定义页面-传统网页</h1>
+<div class="breadcrumb">AllValue店铺版 › 后台操作指引 › 店铺 › 页面设计 › 自定义页面-传统网页</div>
+</div>
+<div class="doc-body"><p><span>页面是店铺的重要组成部分，页面的设计和展示的内容直接影响店铺的留存率和转化率，因此设计风格适配且内容重点突出的页面成为每商家在店铺搭建的必经之路，AllValue预置了一些店铺常用页面的模板，但是如果你想要的页面没有覆盖时，可以使用自定义页的功能来实现。</span></p>
+<h1><span>一、创建自定义页</span></h1>
+<p><span>设置路径：</span><span>Allvalue店铺后台，店铺</span><span>—</span><span>页面设计—传统网页—新建自定义页面</span></p>
+<p><span>因为传统网页和极致移动需要分开搭建，所以自定义页在创建时也需要选择“传统网页”或“极致移动”，此处以传统网页为例</span></p>
+<h2><span>1.传统网页</span><span>-新建自定义页面</span><span>-空白</span><span>模板</span></h2>
+<p><span>如果需要其他内容，也可以选择里面对应的模板，如关于我们、联系我们等</span></p>
+<h2><span>2.装修页面：</span><span>布局—</span><span>添加内容—选择对应的组件</span></h2>
+<p><span>自定义页面创建之后，除了会默认沿用店铺的导航栏和页脚（如果你需要的话可以在装修中将这两个模块隐藏）之外没有任何内容。你可以点击“添加内容”@选择资源库的组件来实现自定义页面的装修效果。</span></p>
+<p><span>如果自定义页面不需要展示导航和页脚，也可以进行隐藏</span></p>
+<h2><span>3.自定义页设置</span></h2>
+<p><span>在完成第2步装修页面并且保存后，我们进入到自定义页设置的环节。可以设置自定义页标题，并且可以设置针对页面的搜索引擎优化。</span></p>
+<p><span>自定义页标题方便你识别页面，不会显示在前台，可以使用方便记录的方式命名，</span></p>
+<p><span>搜索引擎优化的内容可以参考如下：</span></p>
+<h2><span>4.创建成功</span></h2>
+<p><span>完善后点击保存，你的自定义页面就创建成功啦</span></p>
+<h1><span>二、修改自定义页</span></h1>
+<p><span>如果由于信息更新，你需要修改之前创建的自定义页，可以通过如下操作：</span></p>
+<p><span>路径：店铺-页面设计</span><span>—</span><span>创建的</span><span>自定义页-</span><span>编辑</span><span>-去装修</span></p>
+<h1><span>三、自定义页的使用</span></h1>
+<p><span>你可以创建自定义页作为活动页面，进行单独的推广；也可以将自定义页配置到店铺中，用来填充店铺的丰富程度。</span></p>
+<h2><span>1.推广自定义页面</span></h2>
+<p><span>路径：店铺-</span><span>页面设计-</span><span>选定</span><span>自定义页面</span><span>页面-</span><span>更多</span><span>-推广</span><span>分享</span><span>，可以通过链接或者二维码的方式推广自定义页面</span></p>
+<h2><span>2.将自定义页配置到店铺中</span></h2>
+<p><span>你可以在店铺任何可以点击的按钮处配置链接，但是需要根据使用场景区分按钮链接到商品或者是页面。此处以导航栏的按钮为例，方法适用于店铺其他版块。</span></p>
+<h2><span>2.1设置需要配置自定义页面的按钮</span></h2>
+<h2><span>2.2编辑按钮的内容和链接</span></h2>
+<p><span>点击链接模块-自定义页-选择要配置的页面内容，配置后进行保存</span></p>
+<h2><span>2.3验证自定义页打开状态</span></h2>
+<p><span>切换至店铺预览模式，点击刚刚配置自定义页的按钮，确保点击按钮后能跳转至指定的自定义页。</span></p></div>
+<div class="footer">AllValue 帮助中心 · 最后更新: 2026/7/7 15:20:26</div>
+</div>
+</div>
+<script>
+document.querySelectorAll('.nav-group-title').forEach(function(el){el.addEventListener('click',function(){this.parentElement.classList.toggle('open');});});
+// 侧边栏当前文章高亮
+var current=document.querySelector('.nav-leaf a[href="'+location.pathname+'"]');
+if(current)current.parentElement.classList.add('active');
+</script>
+</body></html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>小红书相关玩法 - AllValue 帮助中心</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.8;background:#f5f5f5;color:#333}
+a{color:#0066cc;text-decoration:none}
+a:hover{text-decoration:underline}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:280px;background:#fff;border-right:1px solid #e5e5e5;position:fixed;height:100vh;overflow-y:auto;z-index:100}
+.sidebar-header{padding:24px 20px;background:linear-gradient(135deg,#667eea,#764ba2);position:sticky;top:0}
+.sidebar-header h1{font-size:15px;color:#fff;font-weight:600}
+.sidebar-header p{font-size:12px;color:rgba(255,255,255,0.8);margin-top:4px}
+.nav-list{list-style:none;padding:8px 0}
+.nav-leaf a{display:block;padding:9px 20px;color:#444;font-size:14px;border-left:3px solid transparent}
+.nav-leaf a:hover{background:#f0f7ff;color:#0066cc;border-left-color:#0066cc;text-decoration:none}
+.nav-leaf.active a{background:#f0f7ff;color:#0066cc;border-left-color:#0066cc;font-weight:500}
+.nav-group-title{display:flex;align-items:center;padding:9px 20px;font-size:13px;font-weight:600;color:#222;cursor:pointer;user-select:none;border-left:3px solid transparent}
+.nav-group-title:hover{background:#f5f5f5}
+.nav-arrow{margin-left:auto;font-size:10px;color:#999;transition:transform .2s}
+.nav-group.open>.nav-group-title{color:#667eea;border-left-color:#667eea}
+.nav-group.open>.nav-group-title .nav-arrow{transform:rotate(90deg)}
+.nav-sub{display:none;padding-left:0}
+.nav-group.open>.nav-sub{display:block}
+.nav-sub a{padding-left:36px;font-size:13px}
+.main{flex:1;margin-left:280px;padding:0;max-width:900px}
+.doc-header{padding:32px 48px 24px;background:#fff;border-bottom:1px solid #e5e5e5}
+.doc-header h1{font-size:28px;color:#222;border:none;padding:0;margin:0}
+.doc-header .breadcrumb{font-size:13px;color:#999;margin-top:8px}
+.doc-body{padding:40px 48px;background:#fff;min-height:calc(100vh - 200px)}
+.doc-body h1,.doc-body h2,.doc-body h3,.doc-body h4{color:#222;margin-top:32px;margin-bottom:16px}
+.doc-body h1{font-size:26px;border-bottom:2px solid #667eea;padding-bottom:12px;margin-top:0}
+.doc-body h2{font-size:20px;border-bottom:1px solid #eee;padding-bottom:8px}
+.doc-body h3{font-size:17px}
+.doc-body p{margin-bottom:16px;color:#444;line-height:1.8}
+.doc-body ul,.doc-body ol{margin:12px 0 16px;padding-left:24px}
+.doc-body li{margin-bottom:6px}
+.doc-body pre{background:#1e1e1e;color:#d4d4d4;padding:16px 20px;border-radius:8px;overflow-x:auto;margin:16px 0;font-size:13px;line-height:1.6}
+.doc-body code{background:#f0f0f0;padding:2px 6px;border-radius:4px;font-size:13px;font-family:"SFMono-Regular",Consolas,monospace}
+.doc-body pre code{background:none;padding:0;border-radius:0;font-size:13px}
+.doc-body blockquote.callout{padding:16px 20px;border-radius:8px;border-left:4px solid;margin:20px 0;font-size:14px;line-height:1.7}
+.doc-body hr{border:none;border-top:1px solid #e5e5e5;margin:32px 0}
+.doc-body figure{margin:20px 0;text-align:center}
+.doc-body figure img{max-width:100%;height:auto;border-radius:8px;border:1px solid #e5e5e5}
+.doc-body .board-placeholder{background:#f8f8f8;border:2px dashed #ccc;border-radius:8px;padding:32px;text-align:center;color:#666;margin:20px 0}
+.table-wrapper{overflow-x:auto;margin:16px 0}
+.table-wrapper table{border:1px solid #e5e5e5;border-radius:8px;overflow:hidden}
+.table-wrapper th,.table-wrapper td{padding:10px 14px;border-bottom:1px solid #e5e5e5;text-align:left;font-size:14px}
+.table-wrapper th{background:#f8f8f8;font-weight:600}
+.table-wrapper tr:last-child td{border-bottom:none}
+.back-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#f5f5f5;border-radius:6px;color:#666;font-size:14px;margin-bottom:24px}
+.back-btn:hover{background:#e8e8e8;color:#333;text-decoration:none}
+.footer{padding:24px 48px;border-top:1px solid #e5e5e5;color:#999;font-size:13px;text-align:center;background:#fff}
+@media(max-width:768px){
+.mobile-toggle{display:block;position:fixed;top:16px;left:16px;z-index:200;background:#667eea;color:#fff;border:none;padding:8px 12px;border-radius:6px;cursor:pointer;font-size:18px}
+.sidebar{transform:translateX(-100%);transition:transform .3s}
+.sidebar.open{transform:translateX(0)}
+.main{margin-left:0;max-width:100%;padding:0 16px}
+.doc-header,.doc-body{padding:20px 0}
+}
+</style>
+</head><body>
+<button class="mobile-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">☰</button>
+<div class="layout">
+<aside class="sidebar">
+<div class="sidebar-header"><h1>📖 AllValue 帮助中心</h1><p>飞书知识库</p></div>
+<nav><ul class="nav-list"><li class="nav-group"><span class="nav-group-title">AllValue店铺版<span class="nav-arrow">▸</span></span><ul class="nav-sub"><li class="nav-group"><span class="nav-group-title">快速上手，创建属于你自己的店铺<span class="nav-arrow">▸</span></span><ul class="nav-sub"><li class="nav-leaf"><a href="/docs/GWxqwUjrmixU2NkqwxHcoGW8nth.html">账号注册与登录</a></li>
+</ul></li>
+<li class="nav-group"><span class="nav-group-title">AllValue微信小程序商城<span class="nav-arrow">▸</span></span><ul class="nav-sub"><li class="nav-leaf"><a href="/docs/FaxzwK5dji9gTbkgP8PcrwgnnYd.html">微信小程序商城上线</a></li>
+<li class="nav-leaf"><a href="/docs/Oa8xwVKUAi4ZYAkyP0EcSnldnhe.html">微信小程序客服</a></li>
+<li class="nav-leaf"><a href="/docs/VJECw1SwyiKHUgkMdwUcrUDinch.html">微信小程序解除授权</a></li>
+</ul></li>
+<li class="nav-group"><span class="nav-group-title">AllValue 小红书店铺<span class="nav-arrow">▸</span></span><ul class="nav-sub"><li class="nav-leaf"><a href="/docs/TzujwM8a9ishW1kc6frcrbX5nSe.html">小红书店铺上线</a></li>
+<li class="nav-leaf"><a href="/docs/WMabwqMLEiY44okJWMWc4sb1ncS.html">小红书经营设置</a></li>
+<li class="nav-leaf"><a href="/docs/F4xewnJoEi5KFHkk457cuDkGnZf.html">小红书相关玩法</a></li>
+<li class="nav-leaf"><a href="/docs/VX6bwkudpiN9IkkzOuacug0anZn.html">小红书聚光</a></li>
+<li class="nav-leaf"><a href="/docs/TvQXwMHb8iGPQ4klWq8cq9vSnCe.html">小红书蒲公英</a></li>
+<li class="nav-leaf"><a href="/docs/H2HVw8yluiZGtlkt5vRcNnKYnch.html">小红书直播</a></li>
+</ul></li>
+<li class="nav-group"><span class="nav-group-title">后台操作指引<span class="nav-arrow">▸</span></span><ul class="nav-sub"><li class="nav-leaf"><a href="/docs/Tat8wsEy8i2MtkkM6MJcHD77nxg.html">设置</a></li>
+<li class="nav-leaf"><a href="/docs/IOnzwqJqEic3P9kPWbTcB2H7ndG.html">订单</a></li>
+<li class="nav-leaf"><a href="/docs/IzyCwGfFbiLwvGkDQuRcL5xInZg.html">店铺</a></li>
+<li class="nav-leaf"><a href="/docs/LnHbwAQdai8ux6kw65Cc0rhPnqe.html">内容</a></li>
+<li class="nav-leaf"><a href="/docs/TkSRwF6EyifwdSkPDPMcc3H4nCe.html">商品</a></li>
+<li class="nav-leaf"><a href="/docs/E786wGU7zi5uB7kvSlCcevOknJd.html">营销</a></li>
+<li class="nav-leaf"><a href="/docs/JCoBw08MPieHONkRo3xcyxwZnJh.html">客户</a></li>
+<li class="nav-leaf"><a href="/docs/MIL2wGlzEinPgXkqCykcKe7sn6f.html">数据</a></li>
+</ul></li>
+<li class="nav-group"><span class="nav-group-title">AllValue 移动客户端<span class="nav-arrow">▸</span></span><ul class="nav-sub"><li class="nav-leaf"><a href="/docs/WWLmwtmaaieVqQkf9S9cYoDgnqe.html">AllValue移动客户端</a></li>
+</ul></li>
+</ul></li>
+<li class="nav-group"><span class="nav-group-title">AllValue营销版<span class="nav-arrow">▸</span></span><ul class="nav-sub"><li class="nav-leaf"><a href="/docs/A2bUwWF7aiWG7skRo2Jc3daQnfd.html">AllValue Link - 社交内容托管设置</a></li>
+<li class="nav-leaf"><a href="/docs/Gi2GwRaC7iyM8TkUVkZcj5shnQf.html">Yelp店铺地址获取</a></li>
+<li class="nav-leaf"><a href="/docs/VJXgw2TkziHlqykp8EscvJQcnWd.html">导入卡券卡密管理库存</a></li>
+<li class="nav-leaf"><a href="/docs/WRAhw8Dgwi0qXEkV3yBcOWOjnVb.html">碰碰贴·使用流程</a></li>
+<li class="nav-leaf"><a href="/docs/B44PwJH0GifqCHkGfUycJq1xn1f.html">如何绑定NFC卡</a></li>
+<li class="nav-leaf"><a href="/docs/M3h0wtKnhiRxIRkM5TecL88jnbb.html">如何获取Google店铺评价地址</a></li>
+<li class="nav-leaf"><a href="/docs/RttlwHnrvihf0ukktlacRD4qnHe.html">如何获取Yelp店铺地址</a></li>
+<li class="nav-leaf"><a href="/docs/VwrEwUm5niY0E7kXHfGcW2tTn5b.html">如何获取小红书店铺POI链接</a></li>
+<li class="nav-leaf"><a href="/docs/X2uNwwVSZirhJDkQ3PtcZprwnQb.html">小红书笔记组件</a></li>
+<li class="nav-leaf"><a href="/docs/BuP9wevdFizQ5Sk8wVWcvky6nwh.html">小红书内容托管-描述简介填写指引</a></li>
+<li class="nav-leaf"><a href="/docs/UQlOwlMZ7ibCw9kDKXtceQYxnhc.html">智能创作内容</a></li>
+</ul></li>
+</ul></nav>
+</aside>
+<div class="main">
+<div class="doc-header">
+<a class="back-btn" href="/">← 返回目录</a>
+<h1>小红书相关玩法</h1>
+<div class="breadcrumb">AllValue店铺版 › AllValue 小红书店铺 › 小红书相关玩法</div>
+</div>
+<div class="doc-body"><h2>小红书跳转淘宝</h2>
+<h1><span>条件：
+</span></h1>
+<p><span>目前，在小红书上配置直接跳转淘宝的功能（即“种草直达”），主要是面向品牌和商家的官方广告投放功能，并非所有用户或店铺都能自主开通。</span></p>
+<p><span>这项功能的核心是2025年5月小红书与淘宝天猫共同推出的“红猫计划”。根据官方信息和多位服务商的解读，以下是开通所需满足的条件和配置路径。</span></p>
+<p><span>开通前需要满足的核心条件</span></p>
+<p><span>要想开通此功能，你的店铺和广告账户需要同时满足来自淘宝和小红书两方面的要求：</span></p>
+<p><span>店铺类型：必须是天猫旗舰店，个人淘宝店（C店）目前暂不支持。</span></p>
+<p><span>店铺评分：淘宝店铺的综合体验分需达到 ≥4.5分。</span></p>
+<p><span>投放行业：目前功能并未全行业开放，主要集中在大快消、运动户外、大健康这三大行业的部分类目。像服饰、家居等小红书主流类目暂未纳入。</span></p>
+<p><span>广告资质：必须开通小红书的官方广告投放平台——聚光平台。</span></p>
+<h1><span>配置方式</span></h1>
+<p><span>具体配置步骤</span></p>
+<p><span>对于符合上述条件的商家，可以通过以下路径进行申请和配置：</span></p>
+<p><span>登录聚光平台：使用你的主账户登录小红书聚光平台。</span></p>
+<p><span>完成店铺资质认证：在聚光平台的后台，找到并依次点击“工具” -&gt; “账户工具” -&gt; “店铺资质认证”。</span></p>
+<p><span>提交资料申请：按页面提示上传并提交相关资料。</span></p>
+<p><span>申请CID跳转权限（关键步骤）：</span></p>
+<p><span>店铺资质认证通过后，还需要单独申请CID（即用户点击广告时生成的唯一标识符，用于追踪转化效果）跳转权限。</span></p>
+<p><span>消耗门槛：申请该权限的前置条件是，你的广告账户在前7天的日均消耗达到2000元。</span></p>
+<p><span>维持条件：权限申请成功后，需要保持每天搜索广告消耗在3000元以上，否则权限可能会被收回。</span></p>
+<p><span>等待审核与开通：提交申请后，等待官方审核通过即可。据了解，权限申请通过后，你可以在聚光平台创建广告计划时，直接添加淘宝商品链接作为落地页。</span></p>
+<h2>创建小红书群聊</h2>
+<p><span>群聊，群运营，群管理</span></p>
+<h2><span>创建小红书群聊的优势：</span></h2>
+<p><span>📕小红书群聊可以展示在</span><strong>账号主页，成为粉丝的聚集地，群聊可设置名称，群公告</strong></p>
+<p><span>方便商家在小红书平台进行群运营以及粉丝管理；群聊这样的社群功能还可以增强粉丝的粘性，促进粉丝之间的互动</span></p>
+<p><span>📌群聊可以展示在小红书个人主页，方便小红书用户加入</span></p>
+<p><span>✏️群聊可以设置群介绍，引导客户进入小红书店铺看其他店铺信息</span></p>
+<h4><strong>更多小红书群聊功能优势将在以下步骤中列出</strong></h4>
+<h2><span>如何创建小红书群聊</span></h2>
+<p><span>小红书app - 【消息】 - 右上角【发现群聊】 - 【创建群聊】- 【公开展示】-【立即创建】</span></p>
+<h2><span>创建群聊后相关设置和功能展示</span></h2>
+<p><span>3. 发布群公告宣传自己店铺购买规则，可提醒所有群成员</span></p>
+<h2>关注有礼</h2>
+<p><span>关注有礼是小红书店铺的常用功能，设置后关注商家的小红书账号，就能享受对应的优惠活动。</span></p>
+<h1><span>一、设置关注有礼</span></h1>
+<p><span>设置路径：
+</span><span>登录AllValue店铺后台，在左侧边栏找到小红书店铺-概览-常用功能，可以找到“关注有礼”的设置。</span></p>
+<h2><span>1、点击“关注有礼”的按钮</span></h2>
+<h2><span>2、点击新建活动</span></h2>
+<h2><span>3、编辑具体的活动信息</span></h2>
+<h2><span>4、设置推广方式和弹窗频率</span></h2>
+<p><span>可以在“进入店铺&amp;商品详情均引导关注”或者“仅进入店铺引导关注”二选一</span></p>
+<p><span>弹窗频率可以在“每次访问弹出(关注成功则终止)”和“首次访问弹出”中二选一</span></p>
+<h2><span>5、点击保存</span></h2>
+<p><span>设置的关注有礼活动即可出现在店铺中</span></p>
+<h2>小红书主页商品推荐tab设置</h2>
+<p><span>1. 登录AllValue后台-点击左侧菜单栏【小红书店铺】</span></p>
+<p><span>点击【商品推荐设置】</span></p>
+<p><span>2. 点击【自定义商品排序】，选择您想要展示在您小红书主页的商品【至多6个】</span></p>
+<p><span>将鼠标放在箭头指向处【单击拖拽】，即可完成自定义排序。</span></p>
+<p><span>3. 点击保存后完成设置</span></p>
+<h2>在小红书笔记中添加商品“购买同款”链接</h2>
+<p><span>小红书笔记挂商品，小红书购物车</span></p>
+<p><span>如果你的小红车账号已经创建了AllValue小红书店铺，可以在创建笔记的时候添加店铺中售卖的商品，引导顾客在浏览笔记的时候直接进入购买环节。展示效果如下图：</span></p>
+<p><span>如果你也想添加”购买同款“商品的链接，可以按照如下方式设置下：</span></p>
+<h1><span>1.准备笔记素材，创建笔记内容，在笔记编辑页面点击【添加商品/门店推广】 - 【店内商品】-【去选择】</span></h1>
+<h1><span>2.在【选商品】中选择需要关联展示的商品</span></h1>
+<h1><span>3. 选择商品并编辑完笔记后，发布您的小红书笔记</span></h1>
+<h1><span>发布笔记后商品会展示在笔记左下角</span></h1>
+<h1><span>4. 浏览者点击即可直接进入您的小红书店铺进行该商品的下单购买</span></h1>
+<h2>小红书笔记组件的不同用法</h2>
+<h1><span>一、正文区组件</span></h1>
+<p><span>正文组件位于蒲公英笔记正文处，支持品牌标记组件、搜索组件两种玩法。正文组件拥有更强曝光，助力品牌高效种草。</span></p>
+<h2><span>1.品牌标记组件</span></h2>
+<h2><span>2.搜索组件</span></h2>
+<p><span>(笔记详情页示意）</span></p>
+<p><span>（相应落地页示意）</span></p>
+<h1><span>二、正文区互动组件</span></h1>
+<p><span>互动组件是小红书社区推出的新型互动玩法，分为PK组件和投票组件，需由创作者在发布笔记时选择组件类型并生成组件，笔记发布后互动组件将在笔记详情页展示。让创作者发布富有创意的互动组件可以大幅提升评论区互动率哦～</span></p>
+<h2><span>1.PK组件</span></h2>
+<h2><span>2.投票组件</span></h2>
+<h1><span>三、评论区组件</span></h1>
+<p><span>评论区组件支持品牌方和博主在合作笔记的评论区中，以置顶评论形式加入互动，通过差异化的转化按钮，吸引用户前往站内多元的转化场景，帮助品牌挖掘更多潜在用户、获取更多转化收益。</span></p>
+<h2><span>1.搜索组件</span></h2>
+<p><span>（笔记详情页示意）</span></p>
+<p><span>（相应落地页示意）</span></p>
+<h2><span>2.商品组件</span></h2>
+<p><span>（笔记详情页示意）</span></p>
+<p><span>（相应落地页示意）</span></p>
+<h2><span>3.店铺组件</span></h2>
+<p><span>（笔记详情页示意）</span></p>
+<p><span>（相应落地页示意）</span></p>
+<h2><span>4.私信组件</span></h2>
+<p><span>（笔记详情页示意）</span></p>
+<p><span>（相应落地页示意）</span></p>
+<h1><span>四、笔记底部栏组件</span></h1>
+<p><span>笔记底栏组件位于合作笔记左下角，以卡片样式呈现，通过差异化的转化按钮，吸引用户前往站内多元的转化场景，帮助品牌挖掘更多潜在用户、获取更多转化收益。</span></p>
+<p><span>（笔记详情页示意）</span></p>
+<p><span>（相应落地页示意）</span></p></div>
+<div class="footer">AllValue 帮助中心 · 最后更新: 2026/7/7 15:19:34</div>
+</div>
+</div>
+<script>
+document.querySelectorAll('.nav-group-title').forEach(function(el){el.addEventListener('click',function(){this.parentElement.classList.toggle('open');});});
+// 侧边栏当前文章高亮
+var current=document.querySelector('.nav-leaf a[href="'+location.pathname+'"]');
+if(current)current.parentElement.classList.add('active');
+</script>
+</body></html>

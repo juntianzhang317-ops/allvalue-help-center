@@ -1,0 +1,190 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>微信小程序申请及认证 - AllValue 帮助中心</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.8;background:#f5f5f5;color:#333}
+a{color:#0066cc;text-decoration:none}
+a:hover{text-decoration:underline}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:280px;background:#fff;border-right:1px solid #e5e5e5;position:fixed;height:100vh;overflow-y:auto;z-index:100}
+.sidebar-header{padding:24px 20px;background:linear-gradient(135deg,#667eea,#764ba2);position:sticky;top:0}
+.sidebar-header h1{font-size:15px;color:#fff;font-weight:600}
+.sidebar-header p{font-size:12px;color:rgba(255,255,255,0.8);margin-top:4px}
+.nav-list{list-style:none;padding:8px 0}
+.nav-leaf a{display:block;padding:9px 20px;color:#444;font-size:14px;border-left:3px solid transparent}
+.nav-leaf a:hover{background:#f0f7ff;color:#0066cc;border-left-color:#0066cc;text-decoration:none}
+.nav-leaf.active a{background:#f0f7ff;color:#0066cc;border-left-color:#0066cc;font-weight:500}
+.nav-group-title{display:flex;align-items:center;padding:9px 20px;font-size:13px;font-weight:600;color:#222;cursor:pointer;user-select:none;border-left:3px solid transparent}
+.nav-group-title:hover{background:#f5f5f5}
+.nav-arrow{margin-left:auto;font-size:10px;color:#999;transition:transform .2s}
+.nav-group.open>.nav-group-title{color:#667eea;border-left-color:#667eea}
+.nav-group.open>.nav-group-title .nav-arrow{transform:rotate(90deg)}
+.nav-sub{display:none;padding-left:0}
+.nav-group.open>.nav-sub{display:block}
+.nav-sub a{padding-left:36px;font-size:13px}
+.main{flex:1;margin-left:280px;padding:0;max-width:900px}
+.doc-header{padding:32px 48px 24px;background:#fff;border-bottom:1px solid #e5e5e5}
+.doc-header h1{font-size:28px;color:#222;border:none;padding:0;margin:0}
+.doc-header .breadcrumb{font-size:13px;color:#999;margin-top:8px}
+.doc-body{padding:40px 48px;background:#fff;min-height:calc(100vh - 200px)}
+.doc-body h1,.doc-body h2,.doc-body h3,.doc-body h4{color:#222;margin-top:32px;margin-bottom:16px}
+.doc-body h1{font-size:26px;border-bottom:2px solid #667eea;padding-bottom:12px;margin-top:0}
+.doc-body h2{font-size:20px;border-bottom:1px solid #eee;padding-bottom:8px}
+.doc-body h3{font-size:17px}
+.doc-body p{margin-bottom:16px;color:#444;line-height:1.8}
+.doc-body ul,.doc-body ol{margin:12px 0 16px;padding-left:24px}
+.doc-body li{margin-bottom:6px}
+.doc-body pre{background:#1e1e1e;color:#d4d4d4;padding:16px 20px;border-radius:8px;overflow-x:auto;margin:16px 0;font-size:13px;line-height:1.6}
+.doc-body code{background:#f0f0f0;padding:2px 6px;border-radius:4px;font-size:13px;font-family:"SFMono-Regular",Consolas,monospace}
+.doc-body pre code{background:none;padding:0;border-radius:0;font-size:13px}
+.doc-body blockquote.callout{padding:16px 20px;border-radius:8px;border-left:4px solid;margin:20px 0;font-size:14px;line-height:1.7}
+.doc-body hr{border:none;border-top:1px solid #e5e5e5;margin:32px 0}
+.doc-body figure{margin:20px 0;text-align:center}
+.doc-body figure img{max-width:100%;height:auto;border-radius:8px;border:1px solid #e5e5e5}
+.doc-body .board-placeholder{background:#f8f8f8;border:2px dashed #ccc;border-radius:8px;padding:32px;text-align:center;color:#666;margin:20px 0}
+.table-wrapper{overflow-x:auto;margin:16px 0}
+.table-wrapper table{border:1px solid #e5e5e5;border-radius:8px;overflow:hidden}
+.table-wrapper th,.table-wrapper td{padding:10px 14px;border-bottom:1px solid #e5e5e5;text-align:left;font-size:14px}
+.table-wrapper th{background:#f8f8f8;font-weight:600}
+.table-wrapper tr:last-child td{border-bottom:none}
+.back-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#f5f5f5;border-radius:6px;color:#666;font-size:14px;margin-bottom:24px}
+.back-btn:hover{background:#e8e8e8;color:#333;text-decoration:none}
+.footer{padding:24px 48px;border-top:1px solid #e5e5e5;color:#999;font-size:13px;text-align:center;background:#fff}
+@media(max-width:768px){
+.mobile-toggle{display:block;position:fixed;top:16px;left:16px;z-index:200;background:#667eea;color:#fff;border:none;padding:8px 12px;border-radius:6px;cursor:pointer;font-size:18px}
+.sidebar{transform:translateX(-100%);transition:transform .3s}
+.sidebar.open{transform:translateX(0)}
+.main{margin-left:0;max-width:100%;padding:0 16px}
+.doc-header,.doc-body{padding:20px 0}
+}
+</style>
+</head><body>
+<button class="mobile-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">☰</button>
+<div class="layout">
+<aside class="sidebar">
+<div class="sidebar-header"><h1>📖 AllValue 帮助中心</h1><p>飞书知识库</p></div>
+<nav><ul class="nav-list"><li class="nav-group"><span class="nav-group-title">AllValue店铺版<span class="nav-arrow">▸</span></span><ul class="nav-sub"><li class="nav-group"><span class="nav-group-title">快速上手，创建属于你自己的店铺<span class="nav-arrow">▸</span></span><ul class="nav-sub"><li class="nav-leaf"><a href="/docs/GWxqwUjrmixU2NkqwxHcoGW8nth.html">账号注册与登录</a></li>
+</ul></li>
+<li class="nav-group"><span class="nav-group-title">AllValue微信小程序商城<span class="nav-arrow">▸</span></span><ul class="nav-sub"><li class="nav-leaf"><a href="/docs/FaxzwK5dji9gTbkgP8PcrwgnnYd.html">微信小程序商城上线</a></li>
+<li class="nav-leaf"><a href="/docs/Oa8xwVKUAi4ZYAkyP0EcSnldnhe.html">微信小程序客服</a></li>
+<li class="nav-leaf"><a href="/docs/VJECw1SwyiKHUgkMdwUcrUDinch.html">微信小程序解除授权</a></li>
+</ul></li>
+<li class="nav-group"><span class="nav-group-title">AllValue 小红书店铺<span class="nav-arrow">▸</span></span><ul class="nav-sub"><li class="nav-leaf"><a href="/docs/TzujwM8a9ishW1kc6frcrbX5nSe.html">小红书店铺上线</a></li>
+<li class="nav-leaf"><a href="/docs/WMabwqMLEiY44okJWMWc4sb1ncS.html">小红书经营设置</a></li>
+<li class="nav-leaf"><a href="/docs/F4xewnJoEi5KFHkk457cuDkGnZf.html">小红书相关玩法</a></li>
+<li class="nav-leaf"><a href="/docs/VX6bwkudpiN9IkkzOuacug0anZn.html">小红书聚光</a></li>
+<li class="nav-leaf"><a href="/docs/TvQXwMHb8iGPQ4klWq8cq9vSnCe.html">小红书蒲公英</a></li>
+<li class="nav-leaf"><a href="/docs/H2HVw8yluiZGtlkt5vRcNnKYnch.html">小红书直播</a></li>
+</ul></li>
+<li class="nav-group"><span class="nav-group-title">后台操作指引<span class="nav-arrow">▸</span></span><ul class="nav-sub"><li class="nav-leaf"><a href="/docs/Tat8wsEy8i2MtkkM6MJcHD77nxg.html">设置</a></li>
+<li class="nav-leaf"><a href="/docs/IOnzwqJqEic3P9kPWbTcB2H7ndG.html">订单</a></li>
+<li class="nav-leaf"><a href="/docs/IzyCwGfFbiLwvGkDQuRcL5xInZg.html">店铺</a></li>
+<li class="nav-leaf"><a href="/docs/LnHbwAQdai8ux6kw65Cc0rhPnqe.html">内容</a></li>
+<li class="nav-leaf"><a href="/docs/TkSRwF6EyifwdSkPDPMcc3H4nCe.html">商品</a></li>
+<li class="nav-leaf"><a href="/docs/E786wGU7zi5uB7kvSlCcevOknJd.html">营销</a></li>
+<li class="nav-leaf"><a href="/docs/JCoBw08MPieHONkRo3xcyxwZnJh.html">客户</a></li>
+<li class="nav-leaf"><a href="/docs/MIL2wGlzEinPgXkqCykcKe7sn6f.html">数据</a></li>
+</ul></li>
+<li class="nav-group"><span class="nav-group-title">AllValue 移动客户端<span class="nav-arrow">▸</span></span><ul class="nav-sub"><li class="nav-leaf"><a href="/docs/WWLmwtmaaieVqQkf9S9cYoDgnqe.html">AllValue移动客户端</a></li>
+</ul></li>
+</ul></li>
+<li class="nav-group"><span class="nav-group-title">AllValue营销版<span class="nav-arrow">▸</span></span><ul class="nav-sub"><li class="nav-leaf"><a href="/docs/A2bUwWF7aiWG7skRo2Jc3daQnfd.html">AllValue Link - 社交内容托管设置</a></li>
+<li class="nav-leaf"><a href="/docs/Gi2GwRaC7iyM8TkUVkZcj5shnQf.html">Yelp店铺地址获取</a></li>
+<li class="nav-leaf"><a href="/docs/VJXgw2TkziHlqykp8EscvJQcnWd.html">导入卡券卡密管理库存</a></li>
+<li class="nav-leaf"><a href="/docs/WRAhw8Dgwi0qXEkV3yBcOWOjnVb.html">碰碰贴·使用流程</a></li>
+<li class="nav-leaf"><a href="/docs/B44PwJH0GifqCHkGfUycJq1xn1f.html">如何绑定NFC卡</a></li>
+<li class="nav-leaf"><a href="/docs/M3h0wtKnhiRxIRkM5TecL88jnbb.html">如何获取Google店铺评价地址</a></li>
+<li class="nav-leaf"><a href="/docs/RttlwHnrvihf0ukktlacRD4qnHe.html">如何获取Yelp店铺地址</a></li>
+<li class="nav-leaf"><a href="/docs/VwrEwUm5niY0E7kXHfGcW2tTn5b.html">如何获取小红书店铺POI链接</a></li>
+<li class="nav-leaf"><a href="/docs/X2uNwwVSZirhJDkQ3PtcZprwnQb.html">小红书笔记组件</a></li>
+<li class="nav-leaf"><a href="/docs/BuP9wevdFizQ5Sk8wVWcvky6nwh.html">小红书内容托管-描述简介填写指引</a></li>
+<li class="nav-leaf"><a href="/docs/UQlOwlMZ7ibCw9kDKXtceQYxnhc.html">智能创作内容</a></li>
+</ul></li>
+</ul></nav>
+</aside>
+<div class="main">
+<div class="doc-header">
+<a class="back-btn" href="/">← 返回目录</a>
+<h1>微信小程序申请及认证</h1>
+<div class="breadcrumb">AllValue店铺版 › AllValue微信小程序商城 › 微信小程序商城上线 › 微信小程序申请及认证</div>
+</div>
+<div class="doc-body"><p><span>❗️ AllValue定位海外店铺经营，需要</span><strong>海外企业主体</strong><span>（包含中国香港、中国澳门、中国台湾，支持个体工商户），请提前知悉和准备；</span></p>
+<p><span>❗️ 如果您有企业主体认证的微信公众号，并公众号的类型是服务号，可以参照</span><span>微信公众号快速注册小程序</span><span>，是否有开放入口，需要以微信公众后台为准。</span></p>
+<h1><span>一、</span><span>微信小程序申请</span></h1>
+<h2><span>开始申请</span></h2>
+<p><span>申请微信小程序，请点击跳转至</span><span>微信公众平台</span><span>开始申请</span></p>
+<p><span>◽️点击”小程序“</span></p>
+<p><span>◽️点击“前往注册“</span></p>
+<h2><span>填写账号信息并激活</span></h2>
+<p><span>每个邮箱仅能申请一个小程序；作为登录账号，请填写未被微信公众平台注册，未被微信开放平台注册，</span><strong>未被个人微信号绑定的邮箱</strong></p>
+<p><span>◽️输入满足以上条件的邮箱账号，设置密码，并记住您的登录邮箱和密码</span></p>
+<p><span>◽️在收件箱接收微信小程序官方发送的激活邮件</span></p>
+<p><span>◽️激活账号</span></p>
+<p><span>前往您的邮箱激活您的小程序注册账号</span></p>
+<hr>
+<h1><span>二、</span><span>微信小程序注册</span></h1>
+<h2><span>填写小程序用户登记信息</span></h2>
+<p><span>注册国家/地区需属于</span><strong>海外</strong><span>，主体类型需要选择</span><strong>企业</strong></p>
+<h2><strong>填写主体信息登记</strong></h2>
+<p><span>企业名称和企业注册号填写详情参考：</span><span>境外热门地区/国家常见主体证件示例</span></p>
+<p><span>进入文档后，使用</span><strong>control+F 或者 command + F 搜索您企业所在地的示范文件</strong></p>
+<p><strong>所有需要填写的信息在文档内皆有注明</strong></p>
+<p><strong>填写内容需和您提供的文件完全一致</strong></p>
+<p><strong>举例：加拿大</strong></p>
+<h2><span>填写管理员信息登记</span></h2>
+<p><span>填写管理员基础信息，并通过微信扫码进行绑定</span></p>
+<p><span>管理员</span><strong>姓名</strong><span>的</span><strong>填写方式</strong><span>需要和您提供的</span><strong>证件一致</strong></p>
+<p><strong>注意管理员手机区号</strong><span>，若是海外，请重选海外区号，否则收不到验证码。</span></p>
+<hr>
+<h1><span>三、</span><span>微信小程序认证</span></h1>
+<p><span>开始前，您需要</span><strong>准备</strong><span>好</span><strong>以下材料</strong><span>：</span></p>
+<p><span>1.《</span><strong>企业注册证</strong><span>》或者《</span><strong>商业许可证书</strong><span>》：</span><strong>原件照片或扫描</strong><span>，或者复印件加盖企业公章后扫描；</span><strong>保存为图片格式</strong></p>
+<p><span>2. 联系人</span><strong>正反面身份证件</strong><span>彩色扫描件；</span><span>
+</span><span>3. </span><strong>申请公函</strong><span>（中文简体认证公函、中文繁体认证公函、英文认证公函）；</span><span>
+</span><span>4. </span><strong>联系人手机电话对账单</strong><span>。若联系人手机电话对账单无法提供，可上传公司办公电话对账单（需加盖公章），</span><strong>或银行卡对账单</strong><span>；</span><span>
+</span><span>5. 其他证明材料（若是选择商标命名的，请选择正确的商标注册书或者是商标授权书）。</span></p>
+<p><span>如海外公司没有公章，需要加盖公章的位置需写上</span><strong>法人+和证件名字相同的签字</strong></p>
+<h2><span>同意协议</span></h2>
+<h2><span>填写企业资质信息</span></h2>
+<p><strong>主体证件格式可参考：</strong><strong>境外热门地区/国家常见主体证件示例</strong></p>
+<p><span>◽️上传《企业注册证》或《商业许可证》原件照片或扫描件</span></p>
+<p><span>格式要求：原件照片、扫描件或者加盖公章的复印件，支持.jpg.jpeg.bmp.gif .png格式照片，大小不超过5M。</span></p>
+<h2><span>上传其他相关资料</span></h2>
+<p><span>这一步您需要准备的材料有：</span></p>
+<p><span>◽️申请公函 </span><span>境外主体账号认证公函示例</span></p>
+<p><span>◽️运营授权书 </span><span>境外主体账号运营授权书填写示例</span></p>
+<p><span>◽️手机或银行对账单 （三个月）</span></p>
+<p><span>◽️身份证件（正面）</span></p>
+<p><span>◽️身份证件（反面）</span></p>
+<p><strong>*如果提供中国护照，姓名就是中文+拼音</strong></p>
+<p><span>-请注意，该步骤上传材料均</span><strong>不支持PDF版本</strong><span>，</span><strong>仅支持图片格式</strong></p>
+<p><span>-申请主体为公司全名</span></p>
+<p><span>-您在运营授权书中需要填写的</span><strong>账号ID已展示在您的公函中 </strong><span>（gh_开头）</span></p>
+<p><span>运营授权书：申请主体为公司全名。原始id查看申请公函内的id（gh_开头）。指定管理员姓名需按身份证填写（如果海外驾照是英文，就填英文）。申请主体授权代表请填写公司法人的姓名，正楷填写。海外公司无公章可以不用盖公章。</span></p>
+<p><span>运营授权书的指引详见</span><span>https://kf.qq.com/faq/220907BR7vUF220907N7Zv2q.html</span></p>
+<h2><span>填写认证联系人信息</span></h2>
+<p><span>联系人</span><strong>姓名填写方式</strong><span>需和提供的</span><strong>证件保持一致</strong></p>
+<p><span>如果是</span><strong>海外手机号码注意区号更改</strong></p>
+<h2><span>支付费用</span></h2>
+<p><span>提交材料后，选择电子发票，支付认证费用</span></p>
+<hr>
+<h1><span>四、</span><span>等待审核</span></h1>
+<p><span>如需补交资料，审核人员会在1-3个工作日内给你的预留邮箱邮件告知。按要求补交即可</span></p>
+<p><span>邮件可以无限提交</span></p>
+<p><span>微信后台更新信息限制最多3次</span></p>
+<p><span>提交后如因提交的注册文件里没有显示出法人的姓名，邮件反馈或需要手持证件拍照</span></p>
+<p><strong>具体请以微信审核人员邮件反馈为准！</strong></p>
+<hr>
+<h1><span>五、</span><span>审核成功</span></h1>
+<p><span>认证成功后，您需要完成</span><strong>小程序基本信息和类目补充</strong></p></div>
+<div class="footer">AllValue 帮助中心 · 最后更新: 2026/7/7 15:18:29</div>
+</div>
+</div>
+<script>
+document.querySelectorAll('.nav-group-title').forEach(function(el){el.addEventListener('click',function(){this.parentElement.classList.toggle('open');});});
+// 侧边栏当前文章高亮
+var current=document.querySelector('.nav-leaf a[href="'+location.pathname+'"]');
+if(current)current.parentElement.classList.add('active');
+</script>
+</body></html>

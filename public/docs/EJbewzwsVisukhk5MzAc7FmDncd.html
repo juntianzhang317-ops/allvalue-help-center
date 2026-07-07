@@ -1,0 +1,614 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AllValue 小红书店铺 - AllValue 帮助中心</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.8;background:#f5f5f5;color:#333}
+a{color:#0066cc;text-decoration:none}
+a:hover{text-decoration:underline}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:280px;background:#fff;border-right:1px solid #e5e5e5;position:fixed;height:100vh;overflow-y:auto;z-index:100}
+.sidebar-header{padding:24px 20px;background:linear-gradient(135deg,#667eea,#764ba2);position:sticky;top:0}
+.sidebar-header h1{font-size:15px;color:#fff;font-weight:600}
+.sidebar-header p{font-size:12px;color:rgba(255,255,255,0.8);margin-top:4px}
+.nav-list{list-style:none;padding:8px 0}
+.nav-leaf a{display:block;padding:9px 20px;color:#444;font-size:14px;border-left:3px solid transparent}
+.nav-leaf a:hover{background:#f0f7ff;color:#0066cc;border-left-color:#0066cc;text-decoration:none}
+.nav-leaf.active a{background:#f0f7ff;color:#0066cc;border-left-color:#0066cc;font-weight:500}
+.nav-group-title{display:flex;align-items:center;padding:9px 20px;font-size:13px;font-weight:600;color:#222;cursor:pointer;user-select:none;border-left:3px solid transparent}
+.nav-group-title:hover{background:#f5f5f5}
+.nav-arrow{margin-left:auto;font-size:10px;color:#999;transition:transform .2s}
+.nav-group.open>.nav-group-title{color:#667eea;border-left-color:#667eea}
+.nav-group.open>.nav-group-title .nav-arrow{transform:rotate(90deg)}
+.nav-sub{display:none;padding-left:0}
+.nav-group.open>.nav-sub{display:block}
+.nav-sub a{padding-left:36px;font-size:13px}
+.main{flex:1;margin-left:280px;padding:0;max-width:900px}
+.doc-header{padding:32px 48px 24px;background:#fff;border-bottom:1px solid #e5e5e5}
+.doc-header h1{font-size:28px;color:#222;border:none;padding:0;margin:0}
+.doc-header .breadcrumb{font-size:13px;color:#999;margin-top:8px}
+.doc-body{padding:40px 48px;background:#fff;min-height:calc(100vh - 200px)}
+.doc-body h1,.doc-body h2,.doc-body h3,.doc-body h4{color:#222;margin-top:32px;margin-bottom:16px}
+.doc-body h1{font-size:26px;border-bottom:2px solid #667eea;padding-bottom:12px;margin-top:0}
+.doc-body h2{font-size:20px;border-bottom:1px solid #eee;padding-bottom:8px}
+.doc-body h3{font-size:17px}
+.doc-body p{margin-bottom:16px;color:#444;line-height:1.8}
+.doc-body ul,.doc-body ol{margin:12px 0 16px;padding-left:24px}
+.doc-body li{margin-bottom:6px}
+.doc-body pre{background:#1e1e1e;color:#d4d4d4;padding:16px 20px;border-radius:8px;overflow-x:auto;margin:16px 0;font-size:13px;line-height:1.6}
+.doc-body code{background:#f0f0f0;padding:2px 6px;border-radius:4px;font-size:13px;font-family:"SFMono-Regular",Consolas,monospace}
+.doc-body pre code{background:none;padding:0;border-radius:0;font-size:13px}
+.doc-body blockquote.callout{padding:16px 20px;border-radius:8px;border-left:4px solid;margin:20px 0;font-size:14px;line-height:1.7}
+.doc-body hr{border:none;border-top:1px solid #e5e5e5;margin:32px 0}
+.doc-body figure{margin:20px 0;text-align:center}
+.doc-body figure img{max-width:100%;height:auto;border-radius:8px;border:1px solid #e5e5e5}
+.doc-body .board-placeholder{background:#f8f8f8;border:2px dashed #ccc;border-radius:8px;padding:32px;text-align:center;color:#666;margin:20px 0}
+.table-wrapper{overflow-x:auto;margin:16px 0}
+.table-wrapper table{border:1px solid #e5e5e5;border-radius:8px;overflow:hidden}
+.table-wrapper th,.table-wrapper td{padding:10px 14px;border-bottom:1px solid #e5e5e5;text-align:left;font-size:14px}
+.table-wrapper th{background:#f8f8f8;font-weight:600}
+.table-wrapper tr:last-child td{border-bottom:none}
+.back-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#f5f5f5;border-radius:6px;color:#666;font-size:14px;margin-bottom:24px}
+.back-btn:hover{background:#e8e8e8;color:#333;text-decoration:none}
+.footer{padding:24px 48px;border-top:1px solid #e5e5e5;color:#999;font-size:13px;text-align:center;background:#fff}
+@media(max-width:768px){
+.mobile-toggle{display:block;position:fixed;top:16px;left:16px;z-index:200;background:#667eea;color:#fff;border:none;padding:8px 12px;border-radius:6px;cursor:pointer;font-size:18px}
+.sidebar{transform:translateX(-100%);transition:transform .3s}
+.sidebar.open{transform:translateX(0)}
+.main{margin-left:0;max-width:100%;padding:0 16px}
+.doc-header,.doc-body{padding:20px 0}
+}
+</style>
+</head><body>
+<button class="mobile-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">☰</button>
+<div class="layout">
+<aside class="sidebar">
+<div class="sidebar-header"><h1>📖 AllValue 帮助中心</h1><p>飞书知识库</p></div>
+<nav><ul class="nav-list"><li class="nav-group"><span class="nav-group-title">AllValue店铺版<span class="nav-arrow">▸</span></span><ul class="nav-sub"><li class="nav-group"><span class="nav-group-title">快速上手，创建属于你自己的店铺<span class="nav-arrow">▸</span></span><ul class="nav-sub"><li class="nav-leaf"><a href="/docs/GWxqwUjrmixU2NkqwxHcoGW8nth.html">账号注册与登录</a></li>
+</ul></li>
+<li class="nav-group"><span class="nav-group-title">AllValue微信小程序商城<span class="nav-arrow">▸</span></span><ul class="nav-sub"><li class="nav-leaf"><a href="/docs/FaxzwK5dji9gTbkgP8PcrwgnnYd.html">微信小程序商城上线</a></li>
+<li class="nav-leaf"><a href="/docs/Oa8xwVKUAi4ZYAkyP0EcSnldnhe.html">微信小程序客服</a></li>
+<li class="nav-leaf"><a href="/docs/VJECw1SwyiKHUgkMdwUcrUDinch.html">微信小程序解除授权</a></li>
+</ul></li>
+<li class="nav-group"><span class="nav-group-title">AllValue 小红书店铺<span class="nav-arrow">▸</span></span><ul class="nav-sub"><li class="nav-leaf"><a href="/docs/TzujwM8a9ishW1kc6frcrbX5nSe.html">小红书店铺上线</a></li>
+<li class="nav-leaf"><a href="/docs/WMabwqMLEiY44okJWMWc4sb1ncS.html">小红书经营设置</a></li>
+<li class="nav-leaf"><a href="/docs/F4xewnJoEi5KFHkk457cuDkGnZf.html">小红书相关玩法</a></li>
+<li class="nav-leaf"><a href="/docs/VX6bwkudpiN9IkkzOuacug0anZn.html">小红书聚光</a></li>
+<li class="nav-leaf"><a href="/docs/TvQXwMHb8iGPQ4klWq8cq9vSnCe.html">小红书蒲公英</a></li>
+<li class="nav-leaf"><a href="/docs/H2HVw8yluiZGtlkt5vRcNnKYnch.html">小红书直播</a></li>
+</ul></li>
+<li class="nav-group"><span class="nav-group-title">后台操作指引<span class="nav-arrow">▸</span></span><ul class="nav-sub"><li class="nav-leaf"><a href="/docs/Tat8wsEy8i2MtkkM6MJcHD77nxg.html">设置</a></li>
+<li class="nav-leaf"><a href="/docs/IOnzwqJqEic3P9kPWbTcB2H7ndG.html">订单</a></li>
+<li class="nav-leaf"><a href="/docs/IzyCwGfFbiLwvGkDQuRcL5xInZg.html">店铺</a></li>
+<li class="nav-leaf"><a href="/docs/LnHbwAQdai8ux6kw65Cc0rhPnqe.html">内容</a></li>
+<li class="nav-leaf"><a href="/docs/TkSRwF6EyifwdSkPDPMcc3H4nCe.html">商品</a></li>
+<li class="nav-leaf"><a href="/docs/E786wGU7zi5uB7kvSlCcevOknJd.html">营销</a></li>
+<li class="nav-leaf"><a href="/docs/JCoBw08MPieHONkRo3xcyxwZnJh.html">客户</a></li>
+<li class="nav-leaf"><a href="/docs/MIL2wGlzEinPgXkqCykcKe7sn6f.html">数据</a></li>
+</ul></li>
+<li class="nav-group"><span class="nav-group-title">AllValue 移动客户端<span class="nav-arrow">▸</span></span><ul class="nav-sub"><li class="nav-leaf"><a href="/docs/WWLmwtmaaieVqQkf9S9cYoDgnqe.html">AllValue移动客户端</a></li>
+</ul></li>
+</ul></li>
+<li class="nav-group"><span class="nav-group-title">AllValue营销版<span class="nav-arrow">▸</span></span><ul class="nav-sub"><li class="nav-leaf"><a href="/docs/A2bUwWF7aiWG7skRo2Jc3daQnfd.html">AllValue Link - 社交内容托管设置</a></li>
+<li class="nav-leaf"><a href="/docs/Gi2GwRaC7iyM8TkUVkZcj5shnQf.html">Yelp店铺地址获取</a></li>
+<li class="nav-leaf"><a href="/docs/VJXgw2TkziHlqykp8EscvJQcnWd.html">导入卡券卡密管理库存</a></li>
+<li class="nav-leaf"><a href="/docs/WRAhw8Dgwi0qXEkV3yBcOWOjnVb.html">碰碰贴·使用流程</a></li>
+<li class="nav-leaf"><a href="/docs/B44PwJH0GifqCHkGfUycJq1xn1f.html">如何绑定NFC卡</a></li>
+<li class="nav-leaf"><a href="/docs/M3h0wtKnhiRxIRkM5TecL88jnbb.html">如何获取Google店铺评价地址</a></li>
+<li class="nav-leaf"><a href="/docs/RttlwHnrvihf0ukktlacRD4qnHe.html">如何获取Yelp店铺地址</a></li>
+<li class="nav-leaf"><a href="/docs/VwrEwUm5niY0E7kXHfGcW2tTn5b.html">如何获取小红书店铺POI链接</a></li>
+<li class="nav-leaf"><a href="/docs/X2uNwwVSZirhJDkQ3PtcZprwnQb.html">小红书笔记组件</a></li>
+<li class="nav-leaf"><a href="/docs/BuP9wevdFizQ5Sk8wVWcvky6nwh.html">小红书内容托管-描述简介填写指引</a></li>
+<li class="nav-leaf"><a href="/docs/UQlOwlMZ7ibCw9kDKXtceQYxnhc.html">智能创作内容</a></li>
+</ul></li>
+</ul></nav>
+</aside>
+<div class="main">
+<div class="doc-header">
+<a class="back-btn" href="/">← 返回目录</a>
+<h1>AllValue 小红书店铺</h1>
+<div class="breadcrumb">AllValue店铺版 › AllValue 小红书店铺</div>
+</div>
+<div class="doc-body"><h2>小红书店铺上线</h2>
+<h2>小红书店铺搭建指引总览（2025版） </h2>
+<blockquote class="callout" style="border-left-color:#FF9500;background:#FFF7E6">🎯 <p><span>店铺搭建开始前，你需要了解的基础知识：</span></p><p><span>1.AllValue的小红书店铺是依赖于小红书App存在的，商城展示的内容是依托于AllValue的移动店铺；</span></p><p><span>2.小红书官方会对小红书店铺进行巡检和抽查，售卖商品需要符合相应的资质要求；</span></p><p><span>3.海外主体申请的小红书店铺当前无需备案</span></p><p><span>4.小红书店铺里面，只能使用微信、支付宝（大陆）、stripe的卡类通道支付，不能使用paypal等其他本地钱包，这是小红书的限制；</span></p><p><span>5.顾客在小红书店铺下单，你只需要在AllValue店铺后台进行管理，比如发货、退款等，无需登录小红书千帆后台；</span></p><p><span>6.小红书笔记里面挂的商品是人民币定价，这是小红书的要求；如果从店铺入口进入，就能够展示你设定的币种了；</span></p><p><span>7.常用网址：</span></p><p><span>小红书专业号平台：pro.xiaohongshu.com</span></p><p><span>小红书开放平台：miniapp.xiaohongshu.com</span></p><p><span>AllValue店铺后台：</span><span>https://admin.allvalue.com/admin/user#/login</span></p></blockquote>
+<p><span>店铺搭建开始前，你需要了解的基础知识：</span></p>
+<p><span>1.AllValue的小红书店铺是依赖于小红书App存在的，商城展示的内容是依托于AllValue的移动店铺；</span></p>
+<p><span>2.小红书官方会对小红书店铺进行巡检和抽查，售卖商品需要符合相应的资质要求；</span></p>
+<p><span>3.海外主体申请的小红书店铺当前无需备案</span></p>
+<p><span>4.小红书店铺里面，只能使用微信、支付宝（大陆）、stripe的卡类通道支付，不能使用paypal等其他本地钱包，这是小红书的限制；</span></p>
+<p><span>5.顾客在小红书店铺下单，你只需要在AllValue店铺后台进行管理，比如发货、退款等，无需登录小红书千帆后台；</span></p>
+<p><span>6.小红书笔记里面挂的商品是人民币定价，这是小红书的要求；如果从店铺入口进入，就能够展示你设定的币种了；</span></p>
+<p><span>7.常用网址：</span></p>
+<p><span>小红书专业号平台：pro.xiaohongshu.com</span></p>
+<p><span>小红书开放平台：miniapp.xiaohongshu.com</span></p>
+<p><span>AllValue店铺后台：</span><span>https://admin.allvalue.com/admin/user#/login</span></p>
+<h1><span>
+</span><span>小红书店铺搭建流程图：</span></h1>
+<p><span>‼️蓝色文字可以点击查看具体视频/文字操作指引</span></p>
+<div class="board-placeholder"><p>📋 白板内容（请前往飞书原文档查看）</p></div>
+<h2>认证小红书企业专业号</h2>
+<p><span>小红书企业号认证 小红书蓝V认证 小红书专业号 小红书开店</span></p>
+<p><span>为AllValue商家打造的小红书企业专页号认证指南</span></p>
+<p><span>无论您是否是AllValue的商家，我们都希望这篇文章能为您提供帮助。</span></p>
+<p><strong>认证须知</strong></p>
+<h1><span>一、海外店准备（❗️❗️❗️非常重要，请务必在申请前操作）</span></h1>
+<p><span>请把你即将认证小红书企业专业号的</span><strong>海外公司名称，告知您的业务代表或者在线客服</strong><span>。</span></p>
+<p><span>🔔注意公司名称中的</span><strong>大小写、空格或者“.”等</strong><span>，如“Inc.”，一定与海外企业注册文件名称完全一致！！！</span></p>
+<p><strong style="font-style:italic">该步骤非常重要，非常重要，关系到海外店铺能否顺利开通，请务必重视！</strong></p>
+<h1><span>二、提交认证资料</span></h1>
+<h2><span>🧐申请链接 </span><span>https://pro.xiaohongshu.com/enterprise/home</span></h2>
+<p><code>（建议使用PC端操作）</code></p>
+<p><span>在左侧「账号管理」&gt;「专业号认证/年审」&gt;「账号升级-专业号开通」，进入到提交认证资料的页面。</span></p>
+<h2><span>申请企业专业号将会使用到的资料清单</span></h2>
+<p><span>一、公司资质：</span></p>
+<p><span>1.1《公司注册文件》境外及港澳台企业上传原件、中文翻译扫描件（翻译件需要手写签名+签署职位，如：经理+正楷签字）</span></p>
+<p><span>1.2 公司在公开网站查询的带网址的截图，如在谷歌上搜索“城市+company search”的相关网页或机构进行查询后截图</span></p>
+<p><span>二、商标资质：《商标注册证》、非自有品牌上传《商标授权书》；商标无注册即选择【无品牌】</span></p>
+<p><span>三、《申请公函》从后台下载模版，按公函内要求填写，底部需经理签名+签署职位后手机拍照上传</span></p>
+<p><span>四、选择资质身份：按平台所需的资质提醒，提交对应文件（</span><strong>具体准入行业请提前联系您的业务代表进行准入确认</strong><span>）</span></p>
+<p><span>五、手机号：用于收验证码，可填写境外电话</span></p>
+<p><span>六、运营人信息：</span></p>
+<p><span>6.1 使用护照页的信息进行填写，中国护照填写中文名；外国护照填写护照英文/拼音名；护照图片上传要求将护照放在桌子上对其拍照，不可使用扫描件</span></p>
+<p><span>6.2 大陆身份证可人脸识别</span></p>
+<p><span>七、支付认证费用：¥600元，平台要求仅支持支付宝支付</span></p>
+<h2><strong>1.账号信息</strong></h2>
+<h2><strong>2.主体信息</strong></h2>
+<p><span>使用AllValue小红书小程序，主体归属地需要为</span><strong>境外及港澳台</strong></p>
+<h2><strong>3.身份验证</strong></h2>
+<p><span>境外及港澳台主体申请小红书专业号平台时，</span><strong>身份验证方式仅能选择“提交申请公函”，可下载模板，完善信息后签名盖章上传。</strong></p>
+<p><strong>申请公函中的指定人，需与后续运营人为同一人。如果提交其身份证，需要填写身份证姓名+身份证号；如果提交其护照，需要填写护照姓名+护照号；</strong></p>
+<p><strong>申请公函需要经理级别以上的负责人手写签名并签署职位，日期必须填写且需要在提交认证资料起3个月以内。</strong></p>
+<p><span>样例：
+</span></p>
+<h2><strong>4.资质身份</strong></h2>
+<p><span>身份选择</span></p>
+<p><strong>在选择身份类目时，不同类目有不同的入驻标准，建议先查看</strong><strong>《专业号身份类目》</strong><strong>，准备好该类目相关的“行业资质”文件和“商标”文件，如果文件不齐全，建议调整专业号身份类目。</strong></p>
+<h2><strong>5.运营人信息</strong></h2>
+<p><strong>填写小红书运营人员的个人信息，需与《小红书专业号申请函》中的指定人信息保持一致</strong></p>
+<p><strong>PC端操作时，联系电话可以选择海外；</strong></p>
+<p><strong>此处提交的身份证或者护照照片，需要与《小红书专业号申请函》中填写的信息完全一致。如果申请公函中填写身份证号，此处应该提交身份证照片；如果申请公函中填写护照号，此处应该填写护照照片；</strong></p>
+<h1><span>三、支付认证费用</span></h1>
+<p><strong>一定要确保身份类目选择正确，资料完善后再支付认证费用；</strong></p>
+<p><strong>后续更改主体信息和身份类目，均需要重新认证并缴纳费用。</strong></p>
+<h1><span>四、升级资料审核</span></h1>
+<p><span>提交后等待小红书的审核即可，如果缺少资料，小红书会通过邮箱及小红书站内进行通知，需要及时补充所需资料。审核过程中有如下两点需要注意：</span></p>
+<p><span>
+</span><span>1. 审核的机会仅有</span><strong>3次</strong><span>，3次审核未通过，做审核失败处理，认证费不予退还；</span></p>
+<p><span>2. 单次审核订单</span><strong>有效期为 30 天</strong><span>，逾期未完成认证或不符合平台相关认证规范要求，将做认证失败处理，认证费不予退还；</span></p>
+<p><span>3. 审核费用为 </span><strong>￥600 元/次</strong><span>，订单支付成功后将由审核服务商开启审核。专业号身份有效期为 1 年，每年需要完成一次年审。</span></p>
+<h1><span>五、专业号认证完成</span></h1>
+<p><span>✅</span></p>
+<h1><span>六、常见FAQ</span></h1>
+<h2>AllValue小红书小程序白名单提交及信息获取方式</h2>
+<h1><span>一、提交路径</span></h1>
+<h2><span>方式1：在AllValue店铺后台提交</span></h2>
+<p><span>操作路径：「AllValue店铺后台」&gt;「销售渠道」&gt;「小红书店铺」&gt;「提交申请」</span></p>
+<h2><span>方式2：直接在表单里面提交</span></h2>
+<p><span>https://qima.feishu.cn/share/base/form/shrcnLvtIVu3CkHqn0XQSOqgcId</span></p>
+<h1><span>二、提交信息的获取方式
+
+</span><span>1.AllValue店铺域名</span></h1>
+<p><span>在AllValue店铺后台，「设置」&gt;「域名」，查看带有myallvalue.com的域名</span></p>
+<p><span>AllValue店铺登录后台为</span><span>https://admin.allvalue.com/admin/user#/login</span></p>
+<h2><span>2.小红书账号名称（以“钟薛高”为例）</span></h2>
+<h2><span>3.小红书号（以“钟薛高”为例）</span></h2>
+<h2><span>4.小红书专业号UID</span></h2>
+<p><span>获取方法：</span><strong>电脑浏览器</strong><span>打开小红书主页，在网址中找到</span><strong>/profile/…？之间的那串数字</strong></p>
+<p><span>如下图中5aec030e11be10055dc76c6e就是专业号的UID</span></p>
+<p><span>注意不要用手机端！！！！手机端产生的是短链</span></p>
+<h2><span>5.已盖章的小红书专业号申请公函</span></h2>
+<p><span>申请小红书专业号的时候，有提交过该信息，可以使用之前提交的盖章文档。</span></p>
+<p><span>申请小红书专业号的时候，有提交过该信息，可以使用之前提交的盖章文档。</span></p>
+<p><span>（模板在申请小红书专业号时用到，可以在小红书专业号申请后台下载，</span><span>pro.xiaohongshu.com</span><span>）</span></p>
+<h2><span>6.小红书小程序id</span></h2>
+<p><span>获取方式可以参考文档：</span><span>小红书小程序id的获取</span></p>
+<h2>小红书开放平台主体认证</h2>
+<p><span>当小红书白名单审核通过后，可以开始以下步骤</span></p>
+<p><span>登录</span><span>小红书开放平台</span><span>PC端操作，需要使用您已经认证好的蓝V企业专业号进行扫描登录</span></p>
+<p><span>点击右上角【控制台】，选择【我是开发者】，点击【进入平台】</span></p>
+<p><span>在我的小程序模块，点击【去创建】-【正式版小程序】，小红书提示您进行开发平台主体认证，并会自动识别部分您的主体认证信息</span></p>
+<p><span>核实全部信息，将开放平台认证公函更新为最新版本内容，总体信息核实无误后点击提交审核</span></p>
+<p><span>等待审核结果，如果审核未通过可以按照相应的内容调整完善，直至开放平台主体认证成功</span></p>
+<h2>创建小程序并获取小程序id</h2>
+<h1><span>一、创建小程序</span></h1>
+<p><span>开放主体认证成功后，点击【进入平台】（也可以从右上角【控制台】进入），选择【我是开发者】，点击【进入平台】</span></p>
+<p><span>在我的小程序模块，点击【去创建】-【正式版小程序】</span></p>
+<p><span>自行命名小程序名称，简称以及小程序简介，并上传小程序头像提交审核</span></p>
+<h1><strong>二、等待审核通过，获取小程序id</strong></h1>
+<p><span>小程序基本信息审核通过，在【我的小程序】模块，即可查看APPID，也就是小程序ID；</span></p>
+<p><span>如果你已经创建小程序，可以通过【小程序】-【基础设置】查看小程序ID；</span></p>
+<p><span>获取小程序ID需要保存好，在白名单提报时填写；</span></p>
+<h2>店铺绑定至小红书主页</h2>
+<p><span>白名单通过，小红书店铺主页入口展示，小红书挂店铺</span></p>
+<p><span>当您白名单审核通过后，您才可以开始以下步骤。</span></p>
+<p><span>这些步骤是您店铺展示在小红书主页前的最后操作。</span></p>
+<h1><span>添加小程序类目</span></h1>
+<p><span>当您白名单通过后，进入</span><strong>小红书开放平台</strong><strong>， </strong><span>点击【控制台】，选择【我是开发者】，点击已经创建好的正式版小程序；</span></p>
+<p><span>按照下图点击【基础设置】，点击【小程序类目】，点击【去设置】</span></p>
+<p><strong>确保新增类目中有【电商】选项再进行下一步！</strong></p>
+<p><strong>确保新增类目中有【电商】选项再进行下一步！</strong></p>
+<p><strong>确保新增类目中有【电商】选项再进行下一步！</strong></p>
+<p><span>点击【新增类目】</span></p>
+<p><strong>如果没有【电商】类目，请立刻联系在线客服，不要做任何选择</strong></p>
+<p><strong>当一级类目有【电商】后，选择【电商】类目下</strong><span>适合您的服务类目提交审核</span></p>
+<p><span>小红书页面显示【类目提交成功】</span></p>
+<p><span>您所提交的类目状态为【已生效】</span></p>
+<h1><span>将店铺授权给AllValue并开通交易能力</span></h1>
+<p><span>返回AllValue后台 -【小红书店铺】-【立即授权】，扫码授权有赞小程序，解锁小红书店铺界面</span></p>
+<p><span>授权成功后返回小红书小程序开放平台 - 点击交易能力-【开通交易能力】</span></p>
+<p><span>点击确定后，过几分钟刷新页面，正常就能开通成功！</span></p>
+<p><span>授权成功后，您</span><strong>AllValue后台</strong><span>【小红书店铺】板块界面如下：</span></p>
+<h1><span>上架商品至小红书</span></h1>
+<p><span>别忘记将您已经上传至allvalue商品列表的商品上传至小红书店铺，参考教程：</span><strong>如何在小红书店铺展示上架商品</strong><strong>，不然可能因为店铺内没有可售商品，导致审核不通过！！！</strong></p>
+<h1><span>等待审核</span></h1>
+<p><span>点击AllValue后台【小红书店铺】-【设置】-【版本信息】，提交审核，</span></p>
+<p><span>此时状态为【审核中】，等待24h</span></p>
+<p><span>当版本信息显示为“已更新至最新版本”时进行下一步操作</span></p>
+<p><strong>审核注意事项：1. 必须有店铺装修（可使用AllValue主题库装修模板）</strong></p>
+<p><strong>2. 不可含有任何导流信息</strong></p>
+<h1><span>打开店铺入口</span></h1>
+<p><span>再次登录</span><span>小红书开放平台</span><span>，完成店铺上线前最后步骤</span></p>
+<p><span>点击【小程序入口】-【个人主页入口】，将后面配置项改为“启用”，按照指引填写标题、副标题，链接部分直接复制输入框下面的提示链接，注意不要有空格。</span></p>
+<p><span>提交审核</span></p>
+<p><span>审核大约需要1个工作日，请及时登录查看审核反馈。</span></p>
+<p><span>若标题/副标题名不过审，可咨询小红书人工客服</span></p>
+<p><span>审核通过后，店铺入口会展示在您的小红书主页</span></p>
+<h2>小红书经营设置</h2>
+<h2>上架小红书小程序店铺推广商品的注意事项</h2>
+<p><span>小红书小程序店铺中销售哪些商品，需要在这里编辑实现。你可以选择AllValue店铺的全部商品，也可以只选择一部分商品。</span><strong>但是添加的推广商品需要满足以下几个条件：</strong></p>
+<div class="table-wrapper"><table style="width:100%;border-collapse:collapse;font-size:14px"><thead><tr><th style="background:#f0f0f0;font-weight:600"></th></tr></thead><tbody><tr><td></td></tr><tr><td></td><td></td></tr><tr><td></td></tr><tr><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td></tr><tr><td></td></tr><tr><td></td></tr><tr><td></td><td></td></tr><tr><td></td></tr><tr><td></td></tr></tbody></table></div>
+<p><span>售后与支持</span></p>
+<p><span>商品必须支持</span><strong>7天无理由退换</strong></p>
+<p><span>商品类目</span></p>
+<p><span>（必填）</span></p>
+<p><span>必须符合小红书可售类目商品，且上传时选择类目与实际类目匹配；</span></p>
+<p><span>商品标题</span></p>
+<p><span>小红书短标题</span></p>
+<p><span>少于12个字</span></p>
+<p><span>小红书商品图片</span></p>
+<p><span>尺寸：1:1或者4:3</span></p>
+<p><span>大小：小于3M</span></p>
+<p><span>操作数量限制</span></p>
+<p><span>当次最多可选50个商品</span></p>
+<p><strong>以下商品不可添加为推广商品：</strong></p>
+<p><span>※0元商品</span></p>
+<p><span>※会员权益等相关商品，如99元付费会员权益；</span></p>
+<p><span>※已经在小红书小程序店铺上架的商品，不可重复添加；</span></p>
+<p><span>※AllValue店铺中下架的商品；</span></p>
+<h2>商品管理—部分类目商品支持上传商品资质</h2>
+<p><strong>各位商家：</strong><span>
+</span><span>应小红书店铺要求，美妆商品和数码3C商品必须在有赞上传相关备案号。有赞AllValue商品资质上传入口已经开放</span></p>
+<h1><strong>1、对应小红书店铺商品类目为“美妆”商品资质上传教程</strong></h1>
+<p><span>点击编辑商品，将商品类目选择为“美妆”，“商品资质”一列会出现“编辑资料”，点击编辑资料，美妆商品的“食药监局备案号”填写入口出现，请填写该商品的备案号。</span></p>
+<h1><span>
+</span><strong>2、对应小红书店铺商品类目为“3C数码”教程</strong></h1>
+<p><span>点击编辑商品，将商品类目选择为“数码家电”，“商品资质”一列会出现“编辑资料”，点击“编辑资料”，数码家电商品的“3C认证证书”上传入口出现，请上传该商品的3C证书。
+</span></p>
+<p><span>
+
+</span></p>
+<h2>AllValue小红书小程序店铺订单管理</h2>
+<p><span>当顾客在你的小红书小程序店铺下单后，你可以在AllValue店铺后台查看订单，并且对订单做收款状态确认、发货处理和标记完成等。</span></p>
+<h1><span>一、订单查看</span></h1>
+<p><span>你可以通过两种方式查看小红书小程序店铺的订单</span></p>
+<p><span>1.在小红书应用的订单管理中,这里查看的订单全部都是来源于小红书小程序店铺</span></p>
+<p><span>路径：「应用」&gt;「小红书」&gt;「订单管理」</span></p>
+<p><span>2.在订单列表中查看，这里的订单是来源于全部渠道的订单，包括你的网页版店铺、微信小程序店铺和小红书小程序店铺等几种方式。</span></p>
+<p><span>路径：「订单」&gt;「订单列表」</span></p>
+<h1><span>二、订单处理</span></h1>
+<p><span>你可以针对单个订单做如下处理：</span></p>
+<h1><span>三、订单标记完成</span></h1>
+<p><span>小红书小程序店铺产生的订单，“标记完成”是一个非常关键的动作，只有标记完成后，才能对订单带来的收益结算和提现。</span></p>
+<p><span>注意事项：</span></p>
+<h2>小红书小程序店铺收款账户开通及配置</h2>
+<h1><span>一、小红书小程序店铺收款账户开通</span></h1>
+<p><span>目前已经与AllValue对接的、可在小红书小程序店铺收款的支付服务商不断增多，但由于服务地区受限等，可具体向AllValue客户经理咨询你可以申请开通的服务商名称并且协助建联。</span></p>
+<p><span>你可以将如下信息告知你的客户经理：</span></p>
+<h1><span>二、小红书小程序店铺收款账户的配置</span></h1>
+<p><span>操作路径：AllValue店铺后台（</span><span>https://admin.allvalue.com/admin/user#/login</span><span>），「小红书小程序」&gt;「设置」&gt;「小红书账户」&gt;「支付渠道」&gt;「选择支付服务商」</span></p>
+<h2><span>1.选择支付服务商（以Alpha Pay为例）</span></h2>
+<h2><span>2.填写收款账户的商家信息</span></h2>
+<p><span>该信息为收款账户开通信息，需要与支付服务商获取）（不同服务商需要填写的信息可能不同，请注意与服务商提供信息完全一致），并选择接受的付款类型（只勾选已经确认开通的，不然虽然顾客能看到尚未开通的，但是无法正常支付）</span></p>
+<h2><span>3.选择已经开通的支付方式</span></h2>
+<h2><span>4.激活收款账户</span></h2>
+<p><span>填写信息后点击激活，即可激活账号</span></p>
+<h1><span>二、收款流程测试</span></h1>
+<p><span>以顾客的身份进入微信小程序购买商品，测试付款及退款环节。</span></p>
+<p><span>当你已经在支付服务商出开户成功，可以通过如下途径，将收小红书小程序店铺的收款账户配置到AllValue后台。</span></p>
+<h2>小红书相关玩法</h2>
+<h2>小红书跳转淘宝</h2>
+<h1><span>条件：
+</span></h1>
+<p><span>目前，在小红书上配置直接跳转淘宝的功能（即“种草直达”），主要是面向品牌和商家的官方广告投放功能，并非所有用户或店铺都能自主开通。</span></p>
+<p><span>这项功能的核心是2025年5月小红书与淘宝天猫共同推出的“红猫计划”。根据官方信息和多位服务商的解读，以下是开通所需满足的条件和配置路径。</span></p>
+<p><span>开通前需要满足的核心条件</span></p>
+<p><span>要想开通此功能，你的店铺和广告账户需要同时满足来自淘宝和小红书两方面的要求：</span></p>
+<p><span>店铺类型：必须是天猫旗舰店，个人淘宝店（C店）目前暂不支持。</span></p>
+<p><span>店铺评分：淘宝店铺的综合体验分需达到 ≥4.5分。</span></p>
+<p><span>投放行业：目前功能并未全行业开放，主要集中在大快消、运动户外、大健康这三大行业的部分类目。像服饰、家居等小红书主流类目暂未纳入。</span></p>
+<p><span>广告资质：必须开通小红书的官方广告投放平台——聚光平台。</span></p>
+<h1><span>配置方式</span></h1>
+<p><span>具体配置步骤</span></p>
+<p><span>对于符合上述条件的商家，可以通过以下路径进行申请和配置：</span></p>
+<p><span>登录聚光平台：使用你的主账户登录小红书聚光平台。</span></p>
+<p><span>完成店铺资质认证：在聚光平台的后台，找到并依次点击“工具” -&gt; “账户工具” -&gt; “店铺资质认证”。</span></p>
+<p><span>提交资料申请：按页面提示上传并提交相关资料。</span></p>
+<p><span>申请CID跳转权限（关键步骤）：</span></p>
+<p><span>店铺资质认证通过后，还需要单独申请CID（即用户点击广告时生成的唯一标识符，用于追踪转化效果）跳转权限。</span></p>
+<p><span>消耗门槛：申请该权限的前置条件是，你的广告账户在前7天的日均消耗达到2000元。</span></p>
+<p><span>维持条件：权限申请成功后，需要保持每天搜索广告消耗在3000元以上，否则权限可能会被收回。</span></p>
+<p><span>等待审核与开通：提交申请后，等待官方审核通过即可。据了解，权限申请通过后，你可以在聚光平台创建广告计划时，直接添加淘宝商品链接作为落地页。</span></p>
+<h2>创建小红书群聊</h2>
+<p><span>群聊，群运营，群管理</span></p>
+<h2><span>创建小红书群聊的优势：</span></h2>
+<p><span>📕小红书群聊可以展示在</span><strong>账号主页，成为粉丝的聚集地，群聊可设置名称，群公告</strong></p>
+<p><span>方便商家在小红书平台进行群运营以及粉丝管理；群聊这样的社群功能还可以增强粉丝的粘性，促进粉丝之间的互动</span></p>
+<p><span>📌群聊可以展示在小红书个人主页，方便小红书用户加入</span></p>
+<p><span>✏️群聊可以设置群介绍，引导客户进入小红书店铺看其他店铺信息</span></p>
+<h4><strong>更多小红书群聊功能优势将在以下步骤中列出</strong></h4>
+<h2><span>如何创建小红书群聊</span></h2>
+<p><span>小红书app - 【消息】 - 右上角【发现群聊】 - 【创建群聊】- 【公开展示】-【立即创建】</span></p>
+<h2><span>创建群聊后相关设置和功能展示</span></h2>
+<p><span>3. 发布群公告宣传自己店铺购买规则，可提醒所有群成员</span></p>
+<h2>关注有礼</h2>
+<p><span>关注有礼是小红书店铺的常用功能，设置后关注商家的小红书账号，就能享受对应的优惠活动。</span></p>
+<h1><span>一、设置关注有礼</span></h1>
+<p><span>设置路径：
+</span><span>登录AllValue店铺后台，在左侧边栏找到小红书店铺-概览-常用功能，可以找到“关注有礼”的设置。</span></p>
+<h2><span>1、点击“关注有礼”的按钮</span></h2>
+<h2><span>2、点击新建活动</span></h2>
+<h2><span>3、编辑具体的活动信息</span></h2>
+<h2><span>4、设置推广方式和弹窗频率</span></h2>
+<p><span>可以在“进入店铺&amp;商品详情均引导关注”或者“仅进入店铺引导关注”二选一</span></p>
+<p><span>弹窗频率可以在“每次访问弹出(关注成功则终止)”和“首次访问弹出”中二选一</span></p>
+<h2><span>5、点击保存</span></h2>
+<p><span>设置的关注有礼活动即可出现在店铺中</span></p>
+<h2>小红书主页商品推荐tab设置</h2>
+<p><span>1. 登录AllValue后台-点击左侧菜单栏【小红书店铺】</span></p>
+<p><span>点击【商品推荐设置】</span></p>
+<p><span>2. 点击【自定义商品排序】，选择您想要展示在您小红书主页的商品【至多6个】</span></p>
+<p><span>将鼠标放在箭头指向处【单击拖拽】，即可完成自定义排序。</span></p>
+<p><span>3. 点击保存后完成设置</span></p>
+<h2>在小红书笔记中添加商品“购买同款”链接</h2>
+<p><span>小红书笔记挂商品，小红书购物车</span></p>
+<p><span>如果你的小红车账号已经创建了AllValue小红书店铺，可以在创建笔记的时候添加店铺中售卖的商品，引导顾客在浏览笔记的时候直接进入购买环节。展示效果如下图：</span></p>
+<p><span>如果你也想添加”购买同款“商品的链接，可以按照如下方式设置下：</span></p>
+<h1><span>1.准备笔记素材，创建笔记内容，在笔记编辑页面点击【添加商品/门店推广】 - 【店内商品】-【去选择】</span></h1>
+<h1><span>2.在【选商品】中选择需要关联展示的商品</span></h1>
+<h1><span>3. 选择商品并编辑完笔记后，发布您的小红书笔记</span></h1>
+<h1><span>发布笔记后商品会展示在笔记左下角</span></h1>
+<h1><span>4. 浏览者点击即可直接进入您的小红书店铺进行该商品的下单购买</span></h1>
+<h2>小红书笔记组件的不同用法</h2>
+<h1><span>一、正文区组件</span></h1>
+<p><span>正文组件位于蒲公英笔记正文处，支持品牌标记组件、搜索组件两种玩法。正文组件拥有更强曝光，助力品牌高效种草。</span></p>
+<h2><span>1.品牌标记组件</span></h2>
+<h2><span>2.搜索组件</span></h2>
+<p><span>(笔记详情页示意）</span></p>
+<p><span>（相应落地页示意）</span></p>
+<h1><span>二、正文区互动组件</span></h1>
+<p><span>互动组件是小红书社区推出的新型互动玩法，分为PK组件和投票组件，需由创作者在发布笔记时选择组件类型并生成组件，笔记发布后互动组件将在笔记详情页展示。让创作者发布富有创意的互动组件可以大幅提升评论区互动率哦～</span></p>
+<h2><span>1.PK组件</span></h2>
+<h2><span>2.投票组件</span></h2>
+<h1><span>三、评论区组件</span></h1>
+<p><span>评论区组件支持品牌方和博主在合作笔记的评论区中，以置顶评论形式加入互动，通过差异化的转化按钮，吸引用户前往站内多元的转化场景，帮助品牌挖掘更多潜在用户、获取更多转化收益。</span></p>
+<h2><span>1.搜索组件</span></h2>
+<p><span>（笔记详情页示意）</span></p>
+<p><span>（相应落地页示意）</span></p>
+<h2><span>2.商品组件</span></h2>
+<p><span>（笔记详情页示意）</span></p>
+<p><span>（相应落地页示意）</span></p>
+<h2><span>3.店铺组件</span></h2>
+<p><span>（笔记详情页示意）</span></p>
+<p><span>（相应落地页示意）</span></p>
+<h2><span>4.私信组件</span></h2>
+<p><span>（笔记详情页示意）</span></p>
+<p><span>（相应落地页示意）</span></p>
+<h1><span>四、笔记底部栏组件</span></h1>
+<p><span>笔记底栏组件位于合作笔记左下角，以卡片样式呈现，通过差异化的转化按钮，吸引用户前往站内多元的转化场景，帮助品牌挖掘更多潜在用户、获取更多转化收益。</span></p>
+<p><span>（笔记详情页示意）</span></p>
+<p><span>（相应落地页示意）</span></p>
+<h2>小红书聚光</h2>
+<h2>小红书聚光账户开户</h2>
+<p><span>小红书聚光</span></p>
+<h2><span>2. 点击【去认证】</span></h2>
+<h2><span>3. 选择【复用专业号主体】，点击【下一步】</span></h2>
+<h2><span>4. 补充主体公司法人或经营者姓名 （可中英文）</span></h2>
+<h2><span>5. 参照以下</span><span>链接</span><span>，需要选择境外</span><strong>准入</strong><span>的资质。https://ad.xiaohongshu.com/help/docs?id=2766</span></h2>
+<p><span>尽量选择无需提交行业资质的行业进行审核</span></p>
+<h2><span>6. 等待审核</span></h2>
+<p><span>7. 审核通过后即可</span><span>参照教程</span><span>配置您的微信名片</span></p>
+<h2>如何在小红书配置微信名片</h2>
+<p><span>小红书店铺 小红书开店 微信名片</span></p>
+<p><span>此步骤为店铺上线后的可选操作，配置微信名片必须开通</span><strong>小红书聚光账户</strong></p>
+<p><span>在为您的小红书账号配置微信名片之前，</span><strong>请确保您的小红书店铺已上线</strong><span>。</span></p>
+<h1><span>1. 小红书APP扫码登录小红书专业号平台</span></h1>
+<p><span>【小红书专业号平台】登录网址：</span><span>https://pro.xiaohongshu.com/login</span></p>
+<h1><span>2. 点击【获客工具】-【商家名片】-【新建名片】</span></h1>
+<h1><span>3. 选择【微信】-输入您的【微信号】-点击【确定】</span></h1>
+<p><span>名片添加成功</span></p>
+<h1><span>4. 点击【私信服务组件】-点击【快捷菜单】-</span></h1>
+<h1><span>【社媒名片】-【设置】</span></h1>
+<h1><span>5. 设置名片名称为“联系微信” 并开启社媒名片</span></h1>
+<h1><span>6. 点击【发布设置】</span></h1>
+<h2><span>设置成功！</span></h2>
+<h2>小红书蒲公英</h2>
+<h2>小红书蒲公英玩法</h2>
+<p><span>小红书生态自带优秀的、覆盖各种画像标签的达人，如果你想让达人帮忙带货，促成交易和转化，可以通过开通小红书蒲公英平台与达人进行合作。</span></p>
+<div class="table-wrapper"><table style="width:100%;border-collapse:collapse;font-size:14px"><thead><tr><th style="background:#f0f0f0;font-weight:600"></th></tr></thead><tbody><tr><td></td></tr><tr><td></td></tr><tr><td></td><td></td></tr><tr><td></td></tr><tr><td></td><td></td></tr><tr><td></td></tr><tr><td></td></tr><tr><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td></tr><tr><td></td><td></td><td></td></tr></tbody></table></div>
+<p><strong>内容</strong></p>
+<p><strong>简介</strong></p>
+<p><strong>操作指引</strong></p>
+<p><strong>小红书蒲公英权限开通（针对商家）</strong></p>
+<p><span>想要在小红书与达人进行合作，首先要开通小红书蒲公英权限；</span></p>
+<p><strong>小红书蒲公英权限开通（针对达人）</strong></p>
+<p><span>想要在小红书与商家进行合作，达人首先要开通小红书蒲公英权限；</span></p>
+<p><span>达人蒲公英权限，在小红书App「我」&gt;「创作中心」&gt;「创作服务」&gt;「买手合作」，申请开通</span></p>
+<p><strong>小红书蒲公英带货—博主合作</strong></p>
+<p><span>达人可以通过发布笔记，在笔记中挂你的店铺的商品，帮你带来曝光；</span></p>
+<p><span>达人会提出发布笔记的收费，与达人笔记合作是一次性付费的合作模式；</span></p>
+<p><strong>小红书蒲公英带货—买手合作</strong></p>
+<p><span>达人可以在直播时售卖你店铺的商品，帮忙带来曝光和转化；</span></p>
+<p><span>你可以设置佣金比例，达人会按照此佣金比例，按照直播实际销售金额来赚取佣金。买手合作是按照实际销售额付费的合作模式。</span></p>
+<h2>小红书蒲公英平台权限开通</h2>
+<p><span>如果你想通过与小红书达人进行合作，需要开通小红书蒲公英平台权限。</span></p>
+<h1><span>一、开通条件</span></h1>
+<h3><span>1.小红书小程序店铺已经开通，且小红书店铺主页展示店铺入口</span></h3>
+<p><span>只有完成小红书店铺创建的全部步骤，小红书主页才会展示店铺入口，如果你还没有完成，可以参照</span><span>AllValue小红书小程序店铺创建流程</span><span>操作下。</span></p>
+<h3><span>2.小红书店铺正常经营，且在线销售的商品至少有3个</span></h3>
+<h1><span>二、开通流程</span></h1>
+<p><strong>联系</strong><strong>小红书人工客服</strong><strong>进行蒲公英平台权限开通</strong></p>
+<h1><span>三、开通后其他您需要了解的信息</span></h1>
+<p><span>4. 商家需结算的费用： a. 请达人做内容合作的一次性费用，金额需商户充值进自己的蒲公英账户支付。b. 请达人做带货合作（直播），在无坑位费的前提下的纯cps合作。Alphapay的商户需要后补达人佣金。</span></p>
+<p><span>5. 或者商家可以将小红书店铺里的商品发布到蒲公英平台，并且设置商品的销售佣金，博主认领该商品，并且把这个商品挂在他的直播间里，然后通过带货卖货的形式来合作。
+</span></p>
+<h2>小红书蒲公英—买手合作</h2>
+<p><span>🧐使用小红书蒲公英平台，可以选择买手合作的方式，当前AllValue小红书店铺支持直播带货，需要满足如下条件：</span></p>
+<p><span>1.小红书店铺已经正式发布，且有3款及以上商品在售卖</span></p>
+<p><span>2.小红书企业专业号需要开通蒲公英CPS权限，如果没有开通，请您联系小红书人工客服申请开通。联系小红书人工客服方法：</span><span>小红书人工客服相关问题</span></p>
+<h1><span>一、小红书蒲公英—买手合作的基础信息</span></h1>
+<h1><span>二、小红书蒲公英—买手合作的设置流程</span></h1>
+<h2><span>1.进入小红书蒲公英平台，进入买手合作模块，在合作管理中设置计划管理</span></h2>
+<h2><span>2.创建推广计划类型、覆盖商品、推广时间及佣金等</span></h2>
+<h3><span>2.1营销计划</span></h3>
+<p><span>营销计划是针对部分商品创建的推广计划。计划生效期内，商品的佣金率将覆盖通用佣金率，可被所有博主在直播时选品并推广.</span></p>
+<p><span>选择营销计划中包含的商品，设置推广时间及佣金比率，可以设置指定时间内高佣金，然后添加口播两点供博主更好的了解和销售。确认信息后，营销计划即创建成功</span></p>
+<h3><span>2.2定向计划</span></h3>
+<p><span>定向计划是针对特定博主与商品创建的推广计划，适用于商家与博主单独达成合作的场景。博主选择定向计划商品后，按照定向佣金率计算佣金。</span></p>
+<p><span>设置计划组的名称，比如双11专场，添加已经沟通好的主播，完善推广时间和佣金比例，添加本次带货的商品后创建计划</span></p>
+<p><span>创建定向计划后，返回定向计划列表，点击“编辑计划组”获取“定向口令”，并将“定向口令”给指定的主播</span></p>
+<h2><span>3.主播可以预先到直播合作处选品，创建直播时添加商品，即可在直播时售卖商品</span></h2>
+<h3><span>3.1在选品中心添加商品</span></h3>
+<p><span>操作路径：小红书App「我」&gt;「合作中心」&gt;「合作管理」&gt;「买手合作」&gt;「选品中心」</span></p>
+<p><span>如果商家只创建营销计划，可以通过搜索商品名称添加商品</span></p>
+<p><span>如果商家针对该主播创建定向计划，主播可以通过定向口令，直接添加商品（需要定向计划在推广中的时候才能通过定向口令添加商品）</span></p>
+<h3><span>3.2.主播在直播时添加商品，进行直播</span></h3>
+<h2>小红书蒲公英带货—博主合作</h2>
+<p><span>🧐使用小红书蒲公英平台带货，可以选择博主合作的方式，需要满足如下条件：</span></p>
+<p><span>1.小红书店铺已经正式发布，且有3款及以上商品在售卖</span></p>
+<p><span>2.小红书企业专业号需要开通蒲公英CPS权限，如果没有开通，可以联系您在AllValue的客户经理申请开通；</span></p>
+<p><span>3.蒲公英账号需要充值，且有足够余额</span></p>
+<h1><span>一、小红书蒲公英带货—博主合作的基础信息</span></h1>
+<h1><span>二、小红书蒲公英带货—博主合作的设置流程</span></h1>
+<h2><span>1.博主设置图文笔记/视频笔记的报价</span></h2>
+<p><span>操作路径：小红书App「我」&gt;「合作中心」&gt;「合作管理」&gt;「博主合作」&gt;「我的」&gt;「我的报价」</span></p>
+<h2><span>2.商家向博主发起合作，并明确合作要求</span></h2>
+<h3><span>2.1在小红书蒲公英后台选择「内容合作」，且确保账户余额充足</span></h3>
+<h3><span>2.2在博主广场寻找想要合作的主播并且发起合作</span></h3>
+<p><span>主播可以根据笔记的关键词搜索，比如专注某个领域的博主，也可以根据博主昵称寻找博主，或者根据后台预制筛选项筛选博主，而后发起合作。</span></p>
+<h3><span>2.3针对已经选中博主，商家选择笔记类型，添加合作/立即下单</span></h3>
+<h3><span>2.4填写合作要求，对博主进行发起合作/发起预定</span></h3>
+<p><span>可以介绍商家基本信息，填写笔记期望发布时间和内容等，可以设置合作笔记使用的笔记组件，使合作获得更好的效果，详情可以参见</span><span>小红书笔记组件的用法</span></p>
+<h2><span>3.博主接受/拒绝合作</span></h2>
+<h3><span>3.1博主在小红书消息通知中查看商家发起合作的通知</span></h3>
+<h3><span>3.2博主可以选择接受合作，按照要求提交笔记，或者取消合作</span></h3>
+<h2>小红书直播</h2>
+<h2>非大陆主体小红书企业专业号直播权限开通</h2>
+<p><span>❗️因为小红书针对海外主体和海外IP做了限制，海外企业专业号不能直接开通直播功能。如果需要开通直播功能，需要有中国大陆公司做担保，才能通过小红书客服人工处理开通直播权限。</span></p>
+<p><span>❗️在非大陆地区直播，小红书企业专业号要求1000粉丝以上。</span></p>
+<h1><span>一、准备资料</span></h1>
+<p><span>开通小红书企业专业号（非大陆主体）直播权限需要准备如下资料：</span></p>
+<h2><span>1.营业执照（大陆公司营业执照即可，具体没有限制）</span></h2>
+<h2><span>2.承诺函</span></h2>
+<h1><span>二、申请流程</span></h1>
+<h2><span>1.向小红书在线客服申请开通“境外主体直播权限”</span></h2>
+<p><span>通过小红书账号，联系小红书在线客服</span></p>
+<p><span>PC端：登入pro.xiaohongshu.com，在右上角🎧标识处，进入客服入口，连续输入三次&quot;人工服务”，可以唤起&quot;人工客服&quot;（人工客服在线时间：北京时间9:00-24:00）
+</span></p>
+<p><span>
+</span><span>告知申请开通“境外主体直播权限”的诉求，并提供上述已经准备好的文件。客服收到文件后，会创建服务项目，方便查看开通进度。也可以将联系方式留给小红书在线客服，方便进度更新的通知。</span></p>
+<h2><span>2.提交完成，等待小红书开通，预计48小时内处理完成</span></h2>
+<h2>非中国大陆地区个人直播资质申请指引</h2>
+<p><span>👉 由于政策原因，直播功能未向非中国大陆地区（(根据IP属地）开放。如果想要开通直播资质，需要满足如下条件的情况下进行申请：</span></p>
+<p><span>1.大陆身份证实名认证&amp;满18周岁</span></p>
+<p><span>2.近一年无严重直播内容违规情况</span></p>
+<p><span>3.账号注册时间&gt;=28天</span></p>
+<p><span>4.粉丝数&gt;=1000</span></p>
+<h1><strong>申请路径：</strong></h1>
+<p><strong>小红书APP「我」&gt;左上角「三」&gt;「创作中心」&gt;「直播中心」</strong></p>
+<p><span>点击「去开播」会收到资质提醒，点击查看详情进入非中国大陆地区直播申请界面</span></p>
+<h1><span>1.基础资质认证</span></h1>
+<p><span>确认当前小红书账号满足基础资质认证的全部条件，阅读直播规范（详情见评论）并勾选“已同意”。如果条件不满足，需要待满足后再申请。</span></p>
+<h1><span>2.行为规范测试</span></h1>
+<p><span>部分试题答案如下</span></p>
+<h2>个人专业号直播挂商品</h2>
+<p><span>小红书直播带货</span></p>
+<h2><span>一. 前提条件</span></h2>
+<p><span>在您看这篇文章前，</span></p>
+<p><span>1. 请确认您的个人账号已成为小红书个人专业号，</span></p>
+<p><span>如还没有，请参考教程</span><span>个人专业号开通指南</span></p>
+<p><span>2. 请确认个人专业号已经和主企业号关联，参考教程</span><span>小红书账号关联玩法</span></p>
+<p><span>通过主账号邀请个人专业号加入关联账号，一个企业专业号可以关联三个个人专业号</span></p>
+<h2><span>二. 权限开通</span></h2>
+<p><span>在</span><strong>主账号</strong><span>（蓝V企业专业号）中给已绑定的个人专业号</span><strong>开通店播权限</strong></p>
+<h2><span>***以下直播功能由于小红书系统故障还在修复中，暂不支持使用***</span></h2>
+<h2><span>三. 开通个人专业号直播功能</span></h2>
+<p><span>📢 基础资质认证要求：</span></p>
+<p><span>-大陆身份证实名认证+满18周岁</span></p>
+<p><span>-账号注册时间至少28天</span></p>
+<p><span>-粉丝数至少100</span></p>
+<p><span>-</span><strong>没有账号活跃度要求</strong></p>
+<h2><span>四. 直播挂店铺商品</span></h2>
+<p><span>直播权限开通后，回到直播页面，点击【设置】-&gt;【添加商品】</span></p>
+<p><span>在【我的店铺】里选择想在直播里上架的商品</span></p>
+<p><span>🎉接下来我们就可以开始我们的个人专业号直播带货啦！</span></p>
+<p><span>商品讲解 购物车 弹窗等一系列直播功能就都解锁啦~</span></p>
+<h3><span>关于小红书直播，请参考指南</span><strong>小红书直播玩法</strong></h3>
+<h2>小红书企业专业号直播时挂售商品</h2>
+<p><span>🧐如果希望小红书企业专业号直播时售卖商品，需要满足以下条件：</span></p>
+<p><span>1.小红书企业专业号已经开通店铺，且有商品上架正式售卖</span></p>
+<p><span>2.小红书企业专业号已经开通直播权限（如果还没有开通，可以通过如下指引开通直播权限</span><span>小红书企业专业号（非大陆主体）直播权限开通</span></p>
+<h1><span>一、选择直播商品</span></h1>
+<p><span>操作路径：「小红书专业号平台」&gt;「内容管理」&gt;「直播管理」&gt;「选择直播商品」</span></p>
+<p><span>此处展示的商品为店铺上架正常销售的商品，如果需要在直播时展示，需要点击“加入直播商品池”。</span></p>
+<p><span>如果店铺的商品信息有变更，需要在小红书下架商品后重新点击“添加推广商品，此处的商品信息才会同步变更”</span></p>
+<h1><span>二、开启直播时添加商品</span></h1>
+<p><span>操作路径：小红书企业专业号「我」&gt;「创作中心」&gt;「创作服务」&gt;「主播中心」&gt;「去开播」&gt;「添加商品」</span></p>
+<h2>小红书直播带货基本规则科普</h2>
+<p><span>小红书直播 直播带货 直播违禁 直播封号 账号违规</span></p>
+<p><span>在小红书平台上的直播带货，需要</span><strong>严格遵守</strong><span>小红书平台的运营规则。开播前，请</span><strong>务必</strong><span>了解小红书平台直播禁忌，否则将有可能带来</span><strong>永久禁播</strong><span>的结果。</span></p>
+<p><span>请点击该链接阅读小红书平台发布的</span><span>小红书直播带货管理规则</span></p>
+<p><span>也</span><strong>强烈建议</strong><span>您到</span><strong>小红书电商学习中心搜索“</strong><strong>直播</strong><strong>”</strong><span>学习小红书官方发布的相关规则教学</span></p>
+<p><span>例如：</span><span>小红书直播间规范用语</span></p>
+<p><span>带货直播内容规范</span></p>
+<p><span>直播常见的违规行为</span></p>
+<p><span>消极直播违规类型</span></p>
+<p><span>AllValue提供的该篇文档仅为您介绍一些常见直播违规场景供您参考，</span></p>
+<p><span>具体规则以小红书发布为准</span></p>
+<h1><span>直播间常见的违规用词和示例</span></h1>
+<h1><span>直播间常见的违规导流行为和示例</span></h1>
+<h1><span>直播间常见的着装违规</span></h1>
+<h1><span>直播间违规出镜人员</span></h1>
+<h1><span>其他违规行为</span></h1>
+<p><span>直播不仅需要遵守小红书平台直播规则规范，</span><strong>更应当严格遵守国家法律法规</strong></p>
+<p><span>例如：</span></p>
+<p><span>最后，如若直播违反规则收到平台惩罚，</span><strong>请联系小红书进行申诉和处理</strong></p>
+<h2>小红书直播玩法</h2>
+<p><span>小红书自带直播功能，你可以充分利用直播与自己的顾客交流和互动。如果你有自己的店铺，还可以将店铺的商品在直播时挂车售卖。</span></p>
+<div class="table-wrapper"><table style="width:100%;border-collapse:collapse;font-size:14px"><thead><tr><th style="background:#f0f0f0;font-weight:600"></th></tr></thead><tbody><tr><td></td></tr><tr><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr><tr><td></td><td></td></tr><tr><td></td></tr><tr><td></td><td></td></tr><tr><td></td></tr><tr><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td></tr><tr><td></td></tr><tr><td></td></tr><tr><td></td></tr><tr><td></td></tr></tbody></table></div>
+<p><strong>内容</strong></p>
+<p><strong>简介</strong></p>
+<p><strong>操作指引</strong></p>
+<p><strong>小红书直播权限开通</strong></p>
+<p><span>想要在小红书直播，首先要开通小红书账号的直播权限；
+</span><span>如果是大陆地区，小红书个人号需要做实名认证，小红书企业号做企业专业号认证，没有粉丝要求即可以开通直播权限；</span></p>
+<p><span>非大陆地区详见右侧指引；</span></p>
+<p><strong>小红书直播规范</strong></p>
+<p><span>小红书直播带货管理规则</span></p>
+<p><span>直播时需要严格遵守小红书的直播规则，否则情节严重将被永久封号</span></p>
+<p><strong>小红书企业专业号直播时挂售商品</strong></p>
+<p><span>小红书企业专业号开通的店铺中有售卖的商品，你可以在企业专业号直播间挂售商品</span></p>
+<p><strong>直播间小助手设置</strong></p>
+<p><span>在直播过程中，通常主播会集中精力讲解商品，如果直播间的顾客通过文字互动，可以通过添加直播间小助手来回复顾客；</span></p>
+<p><strong>小红书直播间口播注意事项</strong></p>
+<p><span>想顺利的开展直播活动，一定要了解小红书直播间口播注意事项并严格遵守；</span></p></div>
+<div class="footer">AllValue 帮助中心 · 最后更新: 2026/7/7 15:19:09</div>
+</div>
+</div>
+<script>
+document.querySelectorAll('.nav-group-title').forEach(function(el){el.addEventListener('click',function(){this.parentElement.classList.toggle('open');});});
+// 侧边栏当前文章高亮
+var current=document.querySelector('.nav-leaf a[href="'+location.pathname+'"]');
+if(current)current.parentElement.classList.add('active');
+</script>
+</body></html>

@@ -41,4 +41,4 @@ jobs:
           git add .
           git commit -m "chore: 同步知识库 $(date +'%Y-%m-%d %H:%M')"
           git branch -M gh-pages
-          git push -f https://github.com/juntianzhang317-ops/allvalue-help-center.git gh-pages          
+         git push -f https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/juntianzhang317-ops/allvalue-help-center.git gh-pages         
